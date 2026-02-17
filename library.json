@@ -1,0 +1,19 @@
+{
+  "name": "esp32emu",
+  "version": "1.0.0",
+  "description": "Lightweight ESP32/Arduino emulator for host-side testing — real network sockets, no hardware needed",
+  "keywords": ["esp32", "arduino", "emulator", "testing", "embedded", "simulator", "platformio"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redbasecap-buiss/esp32emu.git"
+  },
+  "authors": [
+    {
+      "name": "Nicola Spieser",
+      "url": "https://github.com/redbasecap-buiss"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": ["native"]
+}

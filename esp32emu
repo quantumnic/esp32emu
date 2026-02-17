@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+# esp32emu CLI — compile and run Arduino/ESP32 sketches on your host
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+INCLUDE_DIR="$SCRIPT_DIR/include"
+SRC_DIR="$SCRIPT_DIR/src"
+BUILD_DIR="$SCRIPT_DIR/build"
+LIB="$BUILD_DIR/libesp32emu.a"
+
+CXX="${CXX:-c++}"
+CXXFLAGS="${CXXFLAGS:--std=c++17 -Wall -Wextra -O2}"
+
+usage() {
+    cat <<EOF
+esp32emu — Lightweight ESP32/Arduino emulator
+
+Usage:
+    esp32emu run <sketch.ino|sketch.cpp> [-- args...]
+    esp32emu build <sketch.ino|sketch.cpp> [-o output]
+    esp32emu test
+    esp32emu version
+
+Commands:
+    run     Compile and run a sketch
+    build   Compile a sketch to a binary
+    test    Run the emulator self-tests
+
+Examples:
+    esp32emu run examples/blink.cpp
+    esp32emu run my_project.ino
+    esp32emu build my_sketch.ino -o my_sketch
+EOF
+    exit 1
+}
+
+ensure_lib() {
+    if [ ! -f "$LIB" ]; then
+        echo "[esp32emu] Building library..."
+        make -C "$SCRIPT_DIR" lib -j"$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)" --no-print-directory
+    fi
+}
+
+cmd_build() {
+    local sketch="$1"; shift
+    local output="${sketch%.ino}"
+    output="${output%.cpp}"
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -o) output="$2"; shift 2 ;;
+            *) echo "Unknown option: $1"; exit 1 ;;
+        esac
+    done
+
+    ensure_lib
+
+    echo "[esp32emu] Compiling: $sketch → $output"
+    $CXX $CXXFLAGS \
+        -I"$INCLUDE_DIR" \
+        -x c++ "$sketch" \
+        "$SRC_DIR/esp32emu_main.cpp" \
+        -L"$BUILD_DIR" -lesp32emu \
+        -o "$output"
+
+    echo "[esp32emu] Built: $output"
+}
+
+cmd_run() {
+    local sketch="$1"; shift
+    local tmpbin
+    tmpbin=$(mktemp /tmp/esp32emu_XXXXXX)
+
+    # Pass remaining args after --
+    local run_args=()
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --) shift; run_args=("$@"); break ;;
+            *) shift ;;
+        esac
+    done
+
+    ensure_lib
+
+    echo "[esp32emu] Compiling: $sketch"
+    $CXX $CXXFLAGS \
+        -I"$INCLUDE_DIR" \
+        -x c++ "$sketch" \
+        "$SRC_DIR/esp32emu_main.cpp" \
+        -L"$BUILD_DIR" -lesp32emu \
+        -o "$tmpbin"
+
+    echo "[esp32emu] Running..."
+    echo ""
+    "$tmpbin" "${run_args[@]+"${run_args[@]}"}"
+    local rc=$?
+
+    rm -f "$tmpbin"
+    exit $rc
+}
+
+cmd_test() {
+    make -C "$SCRIPT_DIR" test --no-print-directory
+}
+
+cmd_version() {
+    echo "esp32emu 1.0.0"
+}
+
+[ $# -lt 1 ] && usage
+
+case "$1" in
+    run)    [ $# -lt 2 ] && usage; shift; cmd_run "$@" ;;
+    build)  [ $# -lt 2 ] && usage; shift; cmd_build "$@" ;;
+    test)   cmd_test ;;
+    version|--version|-v) cmd_version ;;
+    help|--help|-h) usage ;;
+    *) usage ;;
+esac
