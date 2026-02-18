@@ -2,6 +2,20 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.1.0] — 2026-02-18
+
+### Added
+- **Touch pin mock** (`esp32emu_touch.h`) — ESP32 capacitive touch support with `touchRead()`, `touchAttachInterrupt()`, `touchDetachInterrupt()`, threshold-based interrupt firing, and test helpers (`setTouchValue()`, `simulateTouch()`, `releaseTouch()`)
+- **I2S audio mock** (`I2S.h`) — Full ESP-IDF I2S driver emulation with `i2s_driver_install/uninstall`, `i2s_start/stop`, `i2s_write/read`, `i2s_set_pin`, configurable sample rate/bit depth, and test helpers (`injectRxData()`, `getTxData()`, `getTxSize()`)
+- **GPIO interrupt test** (`test_interrupt`) — Comprehensive test for `attachInterrupt`/`detachInterrupt` covering RISING, FALLING, CHANGE modes and edge cases
+- **CONTRIBUTING.md** — Contributing guide with mock design guidelines, code style, testing and example conventions
+- 2 new examples: `touch_piano` (capacitive touch piano with 7 keys), `i2s_tone` (440Hz sine wave I2S output)
+
+### Stats
+- **12 boards**, **36 library mocks** (was 33): +Touch pins, I2S, GPIO interrupts (test)
+- **36 tests** (was 33): +test_touch, test_i2s, test_interrupt
+- **33 examples** (was 31): +touch_piano, i2s_tone
+
 ## [v1.0.0] — 2026-02-18
 
 ### 🎉 v1.0 Release!
