@@ -15,6 +15,9 @@ public:
     SPISettings() {}
     SPISettings(uint32_t clock, uint8_t bitOrder, uint8_t dataMode)
         : clock_(clock), bitOrder_(bitOrder), dataMode_(dataMode) {}
+    uint32_t getClock() const { return clock_; }
+    uint8_t getBitOrder() const { return bitOrder_; }
+    uint8_t getDataMode() const { return dataMode_; }
 private:
     uint32_t clock_ = 1000000;
     uint8_t bitOrder_ = MSBFIRST;

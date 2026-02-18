@@ -2,6 +2,22 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.2.0] — 2026-02-18
+
+### Added
+- **Stepper motor library mock** (`Stepper.h`) — Full Arduino Stepper library emulation with 2-wire and 4-wire constructors, position tracking, angle calculation, speed setting, and test helpers (`getPosition()`, `getTotalSteps()`, `getAngle()`, `resetPosition()`)
+- **IRremote library mock** (`IRremote.h`) — Infrared send/receive emulation with `IRrecv` (decode queue, `injectCode()` test helper) and `IRsend` (NEC, Sony, Samsung, RC5, raw protocols, sent log tracking)
+- **Adafruit BMP280 sensor mock** (`Adafruit_BMP280.h`) — BMP280 pressure/temperature sensor with `readTemperature()`, `readPressure()`, `readAltitude()`, barometric formula, and `setTemperature()`/`setPressure()` test helpers
+- 3 new examples: `stepper_sweep` (motor back-and-forth), `ir_remote_control` (IR send/receive echo), `bmp280_weather` (weather station readings)
+
+### Fixed
+- **SPI.h unused field warnings** — Added getter methods for `SPISettings` private fields, eliminating `-Wunused-private-field` warnings
+
+### Stats
+- **12 boards**, **39 library mocks** (was 36): +Stepper, IRremote, Adafruit_BMP280
+- **39 tests** (was 36): +test_stepper, test_irremote, test_bmp280
+- **36 examples** (was 33): +stepper_sweep, ir_remote_control, bmp280_weather
+
 ## [v1.1.0] — 2026-02-18
 
 ### Added
