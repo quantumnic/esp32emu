@@ -45,7 +45,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 😴 **Deep sleep mock** — Test power management without exiting
 - 📡 **ESP-NOW** — Peer-to-peer communication mock with test helpers
 - 📬 **WiFiUDP** — Real UDP sockets on loopback for NTP, DNS, etc.
-- 🧪 **26 library mocks** — Drop-in replacements for Arduino APIs
+- 🧪 **33 library mocks** — Drop-in replacements for Arduino APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
 ## 🚀 Quick Start
@@ -187,6 +187,10 @@ The emulator renders rich visual output directly in your terminal:
 | `WiFiUDP.h` | ✅ | Real UDP sockets on loopback |
 | `esp_now.h` | ✅ | ESP-NOW peer-to-peer with test helpers |
 | `esp_sleep.h` | ✅ | Deep/light sleep mock (non-exiting) |
+| `esp_task_wdt.h` | ✅ | Task watchdog timer mock |
+| `Ticker.h` | ✅ | Non-blocking timer callbacks |
+| `OneWire.h` | ✅ | OneWire bus mock with device search |
+| `DallasTemperature.h` | ✅ | DS18B20 temperature sensor mock |
 
 ## 🔧 Use as a Library
 

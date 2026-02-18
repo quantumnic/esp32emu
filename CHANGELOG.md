@@ -2,6 +2,23 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.0.0] — 2026-02-18
+
+### 🎉 v1.0 Release!
+
+### Added
+- **Ticker library mock** — Non-blocking timer callbacks with `attach()`, `attach_ms()`, `once()`, `once_ms()`, `detach()`, `active()` and real threaded execution
+- **OneWire library mock** — Full bus emulation with device search, read/write, CRC8, and `addDevice()`/`injectReadData()` test helpers
+- **DallasTemperature library mock** — DS18B20 temperature sensor support with multi-sensor discovery, °C/°F conversion, resolution config, and `setTemperature()`/`setTemperatureByIndex()` test helpers
+- **ESP32 Task Watchdog Timer mock** (`esp_task_wdt.h`) — `esp_task_wdt_init/deinit/add/delete/reset` with timeout tracking, feed counting, and `simulateTimeout()` test helper
+- 3 new tests: `test_ticker`, `test_onewire`, `test_wdt`
+- 3 new examples: `ticker_blink` (non-blocking LED blink), `ds18b20_temp` (temperature sensor reading), `watchdog_demo` (WDT lifecycle)
+
+### Stats
+- **12 boards**, **33 library mocks** (was 29): +Ticker, OneWire, DallasTemperature, esp_task_wdt
+- **33 tests** (was 30): +test_ticker, test_onewire, test_wdt
+- **31 examples** (was 28): +ticker_blink, ds18b20_temp, watchdog_demo
+
 ## [v0.9.0] — 2026-02-18
 
 ### Added
