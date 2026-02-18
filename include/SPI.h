@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <cstddef>
 
 #define SPI_MODE0 0
 #define SPI_MODE1 1

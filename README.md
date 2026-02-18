@@ -19,6 +19,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 |-------|------|:------------:|:-----------:|-----|-------|:----:|:---------:|
 | **ESP32** (default) | ESP32 | 40 | 8 | 320KB | 4MB | ✅ | ✅ |
 | **ESP32-S3** | ESP32-S3 | 48 | 10 | 512KB | 8MB | ✅ | ✅ |
+| **ESP32-C3** | ESP32-C3 (RISC-V) | 22 | 6 | 400KB | 4MB | ✅ | ❌ |
 | **Arduino Uno** | ATmega328P | 14 | 6 | 2KB | 32KB | ❌ | ❌ |
 | **Arduino Mega** | ATmega2560 | 54 | 16 | 8KB | 256KB | ❌ | ❌ |
 
@@ -36,6 +37,7 @@ make test
 
 # Run with specific board
 ./esp32emu run --board uno examples/blink/blink.ino
+./esp32emu run --board esp32c3 examples/blink/blink.ino
 ./esp32emu run --board mega examples/servo_sweep/servo_sweep.ino
 
 # Run the webserver demo
@@ -160,6 +162,7 @@ void loop() {
 | `Servo.h` | ✅ | Servo mock with terminal visualization |
 | `LiquidCrystal.h` | ✅ | LCD mock with terminal display |
 | `SoftwareSerial.h` | ✅ | Software serial mock |
+| `Preferences.h` | ✅ | NVS key-value storage mock |
 
 ## ⚠️ Arduino Board Limitations
 
@@ -175,6 +178,14 @@ make test
 ```
 
 ## 📋 Changelog
+
+### v0.3.0
+- 🏗️ ESP32-C3 (RISC-V) board support with `--board esp32c3`
+- 📦 New library: `Preferences.h` — NVS key-value storage mock (namespace isolation, read-only mode, all types)
+- ⚡ ESP32 LEDC PWM API (`ledcSetup`, `ledcAttachPin`, `ledcWrite`, etc.)
+- 🧪 5 new tests: board, preferences, servo, SPI, LEDC (13 total)
+- 🔧 GitHub Actions CI (Ubuntu + macOS)
+- 🐛 Fix: `SPI.h` missing `<cstddef>` include
 
 ### v0.2.0
 - 🏗️ Arduino Uno & Mega board support with `--board` CLI flag

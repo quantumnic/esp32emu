@@ -8,6 +8,7 @@ namespace esp32emu {
 enum class BoardType {
     ESP32,
     ESP32_S3,
+    ESP32_C3,
     ARDUINO_UNO,
     ARDUINO_MEGA
 };
@@ -30,6 +31,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
     static const BoardConfig configs[] = {
         {BoardType::ESP32,       "ESP32",        "ESP32",       40, 8,  327680,  4194304, 240, true,  true,  2},
         {BoardType::ESP32_S3,    "ESP32-S3",     "ESP32-S3",    48, 10, 524288,  8388608, 240, true,  true,  2},
+        {BoardType::ESP32_C3,    "ESP32-C3",     "ESP32-C3",    22, 6,  409600,  4194304, 160, true,  false, 8},
         {BoardType::ARDUINO_UNO, "Arduino Uno",  "ATmega328P",  14, 6,  2048,    32768,   16,  false, false, 13},
         {BoardType::ARDUINO_MEGA,"Arduino Mega", "ATmega2560",  54, 16, 8192,    262144,  16,  false, false, 13},
     };
@@ -40,6 +42,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "uno")    return BoardType::ARDUINO_UNO;
     if (name == "mega")   return BoardType::ARDUINO_MEGA;
     if (name == "esp32s3" || name == "esp32-s3") return BoardType::ESP32_S3;
+    if (name == "esp32c3" || name == "esp32-c3") return BoardType::ESP32_C3;
     return BoardType::ESP32; // default
 }
 
@@ -92,6 +95,7 @@ public:
             case BoardType::ARDUINO_UNO: printUnoASCII(); break;
             case BoardType::ARDUINO_MEGA: printMegaASCII(); break;
             case BoardType::ESP32_S3: printESP32S3ASCII(); break;
+            case BoardType::ESP32_C3: printESP32C3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -146,6 +150,19 @@ private:
     ║          │ ████████ │ WiFi/BT5   ║
     ║          └──────────┘            ║
     ║  GPIO 0-48  [■■■■■■■■■■■■■■]   ║
+    ║  PWR  [●]  USB-C [═══]          ║
+    ╚══════════════════════════════════╝
+)");
+    }
+
+    void printESP32C3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║          ESP32-C3 (RISC-V)       ║
+    ║          ┌──────────┐            ║
+    ║          │ ████████ │ WiFi       ║
+    ║          └──────────┘            ║
+    ║  GPIO 0-21  [■■■■■■■■■■]       ║
     ║  PWR  [●]  USB-C [═══]          ║
     ╚══════════════════════════════════╝
 )");
