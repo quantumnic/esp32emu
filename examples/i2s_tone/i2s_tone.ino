@@ -46,7 +46,7 @@ void setup() {
 
     int samples_sent = 0;
     while (samples_sent < total_samples) {
-        int count = min(chunk_size, total_samples - samples_sent);
+        int count = std::min(chunk_size, total_samples - samples_sent);
         for (int i = 0; i < count; i++) {
             double t = (double)(samples_sent + i) / SAMPLE_RATE;
             int16_t sample = (int16_t)(AMPLITUDE * sin(2.0 * M_PI * FREQUENCY * t));
