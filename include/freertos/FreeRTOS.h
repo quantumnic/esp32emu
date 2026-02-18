@@ -51,13 +51,16 @@ inline std::mutex& taskListMutex() {
 }
 
 inline void cleanupTasks() {
-    std::lock_guard<std::mutex> lock(taskListMutex());
-    for (auto* t : taskList()) {
+    std::vector<TaskRecord*> snapshot;
+    {
+        std::lock_guard<std::mutex> lock(taskListMutex());
+        snapshot.swap(taskList());
+    }
+    for (auto* t : snapshot) {
         t->running = false;
         if (t->thread.joinable()) t->thread.join();
         delete t;
     }
-    taskList().clear();
 }
 
 } // namespace freertos

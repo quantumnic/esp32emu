@@ -21,16 +21,16 @@ void incrementTask(void* param) {
 }
 
 int main() {
+    // Create mutex before any task that uses it
+    mtx = xSemaphoreCreateMutex();
+    assert(mtx != nullptr);
+
     // Test xTaskCreate
     TaskHandle_t handle = nullptr;
     int param = 10;
     BaseType_t ret = xTaskCreate(incrementTask, "test_task", 2048, &param, 1, &handle);
     assert(ret == pdPASS);
     assert(handle != nullptr);
-
-    // Test mutex
-    mtx = xSemaphoreCreateMutex();
-    assert(mtx != nullptr);
 
     // Test tick count
     TickType_t t1 = xTaskGetTickCount();
