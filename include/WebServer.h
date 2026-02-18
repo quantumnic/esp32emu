@@ -93,3 +93,11 @@ private:
     void parseQueryString(const std::string& qs);
     void parseHeaders(const std::string& raw);
 };
+
+// Global HTTP method constants (Arduino-compatible)
+constexpr int HTTP_GET     = WebServer::HTTP_GET;
+constexpr int HTTP_POST    = WebServer::HTTP_POST;
+constexpr int HTTP_PUT     = WebServer::HTTP_PUT;
+constexpr int HTTP_DELETE  = WebServer::HTTP_DELETE;
+constexpr int HTTP_PATCH   = WebServer::HTTP_PATCH;
+constexpr int HTTP_OPTIONS = WebServer::HTTP_OPTIONS;

@@ -105,3 +105,8 @@ inline uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder) {
     (void)dataPin; (void)clockPin; (void)bitOrder;
     return 0;
 }
+
+// Arduino word/byte helpers
+inline uint16_t word(uint8_t high, uint8_t low) { return (uint16_t(high) << 8) | low; }
+inline uint8_t highByte(uint16_t w) { return uint8_t(w >> 8); }
+inline uint8_t lowByte(uint16_t w) { return uint8_t(w & 0xFF); }

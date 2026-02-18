@@ -66,7 +66,7 @@ EXAMPLE_BINS_CPP = $(foreach cpp,$(EXAMPLE_CPPS),build/examples/$(notdir $(patsu
 
 build/examples/%: examples/%/*.ino $(LIB)
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -x c++ $< $(SRCDIR)/esp32emu_main.cpp -Lbuild -lesp32emu -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -include Arduino.h -x c++ $< $(SRCDIR)/esp32emu_main.cpp -Lbuild -lesp32emu -o $@
 
 build/examples/%: examples/%/*.cpp $(LIB)
 	@mkdir -p $(dir $@)
