@@ -1,5 +1,6 @@
 // ESP32 WebServer demo — runs on localhost via esp32emu
 #include "Arduino.h"
+#include "ESP.h"
 #include "WiFi.h"
 #include "WebServer.h"
 

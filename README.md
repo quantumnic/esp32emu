@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-7-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-14-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-16-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -41,7 +41,8 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
 - 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, Arduino Uno, Mega, Nano
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
-- 🧪 **16 library mocks** — Drop-in replacements for Arduino APIs
+- 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
+- 🧪 **20 library mocks** — Drop-in replacements for Arduino APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
 ## 🚀 Quick Start
@@ -98,6 +99,8 @@ make test
 | [`ota_update/`](examples/ota_update/) | OTA firmware update simulation with progress bar | ESP32 |
 | [`captive_portal/`](examples/captive_portal/) | WiFi config portal with web UI | ESP32 |
 | [`freertos_tasks/`](examples/freertos_tasks/) | FreeRTOS multi-task with mutex synchronization | ESP32 |
+| [`sd_datalogger/`](examples/sd_datalogger/) | SD card CSV data logging | Any |
+| [`ultrasonic_buzzer/`](examples/ultrasonic_buzzer/) | Ultrasonic sensor + buzzer parking sensor | Uno/Mega |
 | [`webserver_demo.cpp`](examples/webserver_demo.cpp) | Full WebServer with API endpoints | ESP32 |
 
 > 📖 See [docs/examples.md](docs/examples.md) for detailed walkthroughs of each example.
@@ -161,6 +164,9 @@ The emulator renders rich visual output directly in your terminal:
 | `Servo.h` | ✅ | Servo mock with terminal visualization |
 | `LiquidCrystal.h` | ✅ | LCD mock with terminal display |
 | `SoftwareSerial.h` | ✅ | Software serial mock |
+| `Adafruit_NeoPixel.h` | ✅ | NeoPixel with terminal true-color rendering |
+| `SD.h` | ✅ | SD card mock using host filesystem |
+| `SPIFFS.h` / `LittleFS` | ✅ | Flash filesystem mock |
 | `freertos/FreeRTOS.h` | ✅ | Tasks, mutexes, semaphores (std::thread) |
 
 ## 🔧 Use as a Library
@@ -234,7 +240,7 @@ graph TB
 make test
 ```
 
-Tests cover GPIO, WiFi, WebServer, Wire, SPI, EEPROM, Preferences, Servo, LEDC, String, Board, Time, and ESP modules.
+18 tests cover GPIO, WiFi, WebServer, Wire, SPI, EEPROM, Preferences, Servo, LEDC, String, Board, Time, ESP, SD, SPIFFS, NeoPixel, and tone/pulseIn modules.
 
 ## 🤝 Contributing
 
@@ -281,6 +287,17 @@ PlatformIO native mode doesn't provide WiFi, WebServer, or networking. esp32emu 
 </details>
 
 ## 📋 Changelog
+
+### v0.5.0
+- 💾 **SD card library** — full mock with read/write/mkdir/remove backed by host filesystem
+- 📂 **SPIFFS & LittleFS** — flash filesystem mocks
+- 🌈 **Adafruit NeoPixel library** — with ColorHSV, brightness, terminal true-color rendering
+- 🔊 **tone()/noTone()** — buzzer/speaker simulation with terminal output
+- 📏 **pulseIn()** — simulated pulse measurement (e.g., ultrasonic sensors)
+- 🔀 **shiftOut()/shiftIn()** — shift register mock
+- 🔧 **Bug fix**: webserver_demo missing ESP.h include
+- 📁 2 new examples: SD data logger, ultrasonic parking sensor
+- 🧪 4 new tests (18 total): SD, SPIFFS, NeoPixel, tone/pulseIn
 
 ### v0.2.0
 - 🏗️ Arduino Uno & Mega board support with `--board` CLI flag

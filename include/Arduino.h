@@ -75,3 +75,33 @@ inline void ledcWriteTone(uint8_t channel, double freq) {
 inline void ledcWriteNote(uint8_t channel, int note, int octave) {
     (void)channel; (void)note; (void)octave;
 }
+
+// --- tone / noTone ---
+inline void tone(uint8_t pin, unsigned int frequency, unsigned long duration = 0) {
+    fprintf(stderr, "🔊 tone(pin=%d, freq=%uHz", pin, frequency);
+    if (duration > 0) fprintf(stderr, ", dur=%lums", duration);
+    fprintf(stderr, ")\n");
+    (void)pin; (void)frequency; (void)duration;
+}
+inline void noTone(uint8_t pin) {
+    fprintf(stderr, "🔇 noTone(pin=%d)\n", pin);
+    (void)pin;
+}
+
+// --- pulseIn ---
+inline unsigned long pulseIn(uint8_t pin, uint8_t value, unsigned long timeout = 1000000UL) {
+    (void)pin; (void)value; (void)timeout;
+    // Return a simulated pulse width (e.g., ~1500us for ultrasonic ~25cm)
+    return 1500;
+}
+
+// --- shiftOut / shiftIn ---
+#define MSBFIRST 1
+#define LSBFIRST 0
+inline void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val) {
+    (void)dataPin; (void)clockPin; (void)bitOrder; (void)val;
+}
+inline uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder) {
+    (void)dataPin; (void)clockPin; (void)bitOrder;
+    return 0;
+}
