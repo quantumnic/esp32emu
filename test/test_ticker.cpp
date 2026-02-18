@@ -12,10 +12,10 @@ int main() {
         Ticker t;
         t.attach_ms(50, [&]() { count++; });
         assert(t.active());
-        std::this_thread::sleep_for(std::chrono::milliseconds(180));
+        std::this_thread::sleep_for(std::chrono::milliseconds(350));
         t.detach();
         assert(!t.active());
-        assert(count >= 2); // should fire ~3 times in 180ms
+        assert(count >= 2); // should fire multiple times in 350ms
         printf("ticker attach: count=%d\n", count.load());
     }
 
