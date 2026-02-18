@@ -2,6 +2,20 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v0.7.0] — 2026-02-18
+
+### Added
+- **WiFiUDP mock** — Real UDP sockets on loopback for NTP, DNS, and general UDP communication. Full send/receive API with `beginPacket`/`endPacket`/`parsePacket`
+- **ESP-NOW mock** — Peer-to-peer communication emulation with peer management, send/receive callbacks, broadcast support, and test helpers (`injectRecv`, `getSentLog`)
+- **esp_sleep mock** — Deep sleep and light sleep emulation that records state instead of exiting. Timer wakeup, ext0/ext1 wakeup config, sleep callbacks for testing
+- 3 new tests: `test_udp`, `test_espnow`, `test_sleep`
+- 3 new examples: `udp_ntp` (NTP client), `espnow_sender` (sensor data P2P), `deep_sleep_timer` (timer wakeup)
+
+### Stats
+- **26 library mocks** (was 23)
+- **24 tests** (was 21)
+- **22 examples** (was 19)
+
 ## [v0.6.0] — 2026-02-18
 
 ### Added

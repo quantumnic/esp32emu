@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-7-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-19-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-22-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -42,7 +42,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, Arduino Uno, Mega, Nano
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
-- 🧪 **23 library mocks** — Drop-in replacements for Arduino APIs
+- 😴 **Deep sleep mock** — Test power management without exiting
+- 📡 **ESP-NOW** — Peer-to-peer communication mock with test helpers
+- 📬 **WiFiUDP** — Real UDP sockets on loopback for NTP, DNS, etc.
+- 🧪 **26 library mocks** — Drop-in replacements for Arduino APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
 ## 🚀 Quick Start
@@ -103,6 +106,9 @@ make test
 | [`ultrasonic_buzzer/`](examples/ultrasonic_buzzer/) | Ultrasonic sensor + buzzer parking sensor | Uno/Mega |
 | [`mqtt_sensor/`](examples/mqtt_sensor/) | MQTT temp publisher + LED control subscriber | ESP32 |
 | [`bluetooth_echo/`](examples/bluetooth_echo/) | Bluetooth Serial echo server | ESP32 |
+| [`udp_ntp/`](examples/udp_ntp/) | UDP NTP client with WiFiUDP | ESP32 |
+| [`espnow_sender/`](examples/espnow_sender/) | ESP-NOW peer-to-peer sensor data | ESP32 |
+| [`deep_sleep_timer/`](examples/deep_sleep_timer/) | Deep sleep with timer wakeup | ESP32 |
 | [`webserver_demo.cpp`](examples/webserver_demo.cpp) | Full WebServer with API endpoints | ESP32 |
 
 > 📖 See [docs/examples.md](docs/examples.md) for detailed walkthroughs of each example.
@@ -173,6 +179,9 @@ The emulator renders rich visual output directly in your terminal:
 | `PubSubClient.h` | ✅ | MQTT publish/subscribe with local delivery |
 | `BluetoothSerial.h` | ✅ | ESP32 BT SPP with ring buffer |
 | `ArduinoOTA.h` | ✅ | OTA update lifecycle simulation |
+| `WiFiUDP.h` | ✅ | Real UDP sockets on loopback |
+| `esp_now.h` | ✅ | ESP-NOW peer-to-peer with test helpers |
+| `esp_sleep.h` | ✅ | Deep/light sleep mock (non-exiting) |
 
 ## 🔧 Use as a Library
 
