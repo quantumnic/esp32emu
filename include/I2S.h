@@ -6,6 +6,7 @@
 #include <map>
 #include <mutex>
 #include <functional>
+#include <cstdio>
 
 // I2S modes
 #define I2S_MODE_MASTER_TX  0x01
