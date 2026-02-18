@@ -9,7 +9,24 @@
 class WiFiClient {
 public:
     WiFiClient();
+    WiFiClient(const char* host, uint16_t port, int fd);
     ~WiFiClient();
+
+    // Move semantics (prevent double-close)
+    WiFiClient(WiFiClient&& other) noexcept : fd_(other.fd_), timeout_ms_(other.timeout_ms_) {
+        other.fd_ = -1;
+    }
+    WiFiClient& operator=(WiFiClient&& other) noexcept {
+        if (this != &other) {
+            stop();
+            fd_ = other.fd_;
+            timeout_ms_ = other.timeout_ms_;
+            other.fd_ = -1;
+        }
+        return *this;
+    }
+    WiFiClient(const WiFiClient&) = delete;
+    WiFiClient& operator=(const WiFiClient&) = delete;
 
     int connect(const char* host, uint16_t port);
     int connect(const char* host, uint16_t port, int timeout_ms);

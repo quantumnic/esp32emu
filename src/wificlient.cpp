@@ -9,6 +9,8 @@
 #include <cstdio>
 
 WiFiClient::WiFiClient() {}
+WiFiClient::WiFiClient(const char* host, uint16_t port, int fd)
+    : fd_(fd) { (void)host; (void)port; }
 WiFiClient::~WiFiClient() { stop(); }
 
 int WiFiClient::connect(const char* host, uint16_t port) {

@@ -23,11 +23,29 @@ int main(int argc, char** argv) {
     signal(SIGINT, sighandler);
     signal(SIGTERM, sighandler);
 
-    // Parse --board option
+    // Parse CLI options
     esp32emu::BoardType board = esp32emu::BoardType::ESP32;
     for (int i = 1; i < argc; i++) {
         if ((strcmp(argv[i], "--board") == 0 || strcmp(argv[i], "-b") == 0) && i + 1 < argc) {
             board = esp32emu::parseBoardName(argv[++i]);
+        } else if (strcmp(argv[i], "--list-boards") == 0) {
+            const char* names[] = {"esp32", "esp32-s3", "esp32-c3", "esp32-s2", "esp32-c6",
+                                   "uno", "mega", "nano", "pico"};
+            fprintf(stdout, "Available boards:\n");
+            for (int j = 0; j < 9; j++) {
+                auto& c = esp32emu::getBoardConfig(static_cast<esp32emu::BoardType>(j));
+                fprintf(stdout, "  %-10s  %-14s  %3dMHz  %6dB RAM  %s%s\n",
+                        names[j], c.name, c.cpu_freq_mhz, c.ram_bytes,
+                        c.has_wifi ? "WiFi " : "", c.has_bluetooth ? "BT" : "");
+            }
+            return 0;
+        } else if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
+            fprintf(stdout, "Usage: %s [options]\n\n"
+                    "Options:\n"
+                    "  -b, --board <name>   Select board (default: esp32)\n"
+                    "  --list-boards        List available boards\n"
+                    "  -h, --help           Show this help\n", argv[0]);
+            return 0;
         }
     }
 

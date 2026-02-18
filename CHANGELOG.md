@@ -2,6 +2,25 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v0.8.0] — 2026-02-18
+
+### Added
+- **ESP32-C6 board** — WiFi 6, BLE 5.0, RISC-V core at 160MHz with 31 GPIOs and ASCII art
+- **RP2040 Pico board** — Raspberry Pi Pico support, dual-core Cortex-M0+ at 133MHz, GP0-GP29, LED on GP25
+- **WiFiServer mock** — Real TCP server on loopback with `begin()`, `available()`, `stop()`. Accepts incoming WiFiClient connections
+- **DNSServer mock** — Captive portal DNS redirection with wildcard/specific domain resolution, test helpers (`resolve`, `getProcessCount`)
+- **WiFiClient move semantics** — Proper move constructor/assignment, preventing double-close bugs
+- **`--list-boards` CLI flag** — Lists all supported boards with specs
+- **`--help` CLI flag** — Usage information
+- 3 new tests: `test_boards`, `test_dnsserver`, `test_wifiserver`
+- 3 new examples: `captive_portal_dns` (DNS captive portal), `tcp_echo_server` (WiFiServer echo), `pico_blink` (RP2040 blink)
+
+### Stats
+- **9 boards** (was 7): +ESP32-C6, RP2040 Pico
+- **28 library mocks** (was 26)
+- **27 tests** (was 24)
+- **25 examples** (was 22)
+
 ## [v0.7.0] — 2026-02-18
 
 ### Added

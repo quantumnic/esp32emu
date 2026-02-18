@@ -10,9 +10,11 @@ enum class BoardType {
     ESP32_S3,
     ESP32_C3,
     ESP32_S2,
+    ESP32_C6,
     ARDUINO_UNO,
     ARDUINO_MEGA,
-    ARDUINO_NANO
+    ARDUINO_NANO,
+    RP2040
 };
 
 struct BoardConfig {
@@ -35,9 +37,11 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::ESP32_S3,     "ESP32-S3",     "ESP32-S3",    48, 10, 524288,  8388608, 240, true,  true,  2},
         {BoardType::ESP32_C3,     "ESP32-C3",     "ESP32-C3",    22, 6,  409600,  4194304, 160, true,  false, 8},
         {BoardType::ESP32_S2,     "ESP32-S2",     "ESP32-S2",    46, 10, 327680,  4194304, 240, true,  false, 2},
+        {BoardType::ESP32_C6,     "ESP32-C6",     "ESP32-C6",    31, 7,  524288,  4194304, 160, true,  true,  8},
         {BoardType::ARDUINO_UNO,  "Arduino Uno",  "ATmega328P",  14, 6,  2048,    32768,   16,  false, false, 13},
         {BoardType::ARDUINO_MEGA, "Arduino Mega", "ATmega2560",  54, 16, 8192,    262144,  16,  false, false, 13},
         {BoardType::ARDUINO_NANO, "Arduino Nano", "ATmega328P",  14, 8,  2048,    32768,   16,  false, false, 13},
+        {BoardType::RP2040,       "RP2040 Pico",  "RP2040",      30, 4,  264000,  2097152, 133, false, false, 25},
     };
     return configs[static_cast<int>(t)];
 }
@@ -49,6 +53,8 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "esp32s3" || name == "esp32-s3") return BoardType::ESP32_S3;
     if (name == "esp32c3" || name == "esp32-c3") return BoardType::ESP32_C3;
     if (name == "esp32s2" || name == "esp32-s2") return BoardType::ESP32_S2;
+    if (name == "esp32c6" || name == "esp32-c6") return BoardType::ESP32_C6;
+    if (name == "pico" || name == "rp2040")      return BoardType::RP2040;
     return BoardType::ESP32; // default
 }
 
@@ -85,6 +91,7 @@ public:
             case BoardType::ARDUINO_UNO:  return 14; // A0=14..A5=19
             case BoardType::ARDUINO_NANO: return 14; // A0=14..A7=21
             case BoardType::ARDUINO_MEGA: return 54; // A0=54..A15=69
+            case BoardType::RP2040:       return 26; // A0=26..A3=29
             default: return 36; // ESP32
         }
     }
@@ -105,6 +112,8 @@ public:
             case BoardType::ESP32_S3:     printESP32S3ASCII(); break;
             case BoardType::ESP32_C3:     printESP32C3ASCII(); break;
             case BoardType::ESP32_S2:     printESP32S2ASCII(); break;
+            case BoardType::ESP32_C6:     printESP32C6ASCII(); break;
+            case BoardType::RP2040:       printRP2040ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -200,6 +209,33 @@ private:
     ║  A0-A7   [■■■■■■■■]       ║
     ║  Mini-USB [═══]            ║
     ╚════════════════════════════╝
+)");
+    }
+
+    void printESP32C6ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║       ESP32-C6 (RISC-V)          ║
+    ║          ┌──────────┐            ║
+    ║          │ ████████ │ WiFi6/BT5  ║
+    ║          └──────────┘            ║
+    ║  GPIO 0-30  [■■■■■■■■■■■]      ║
+    ║  PWR  [●]  USB-C [═══]          ║
+    ╚══════════════════════════════════╝
+)");
+    }
+
+    void printRP2040ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║       RASPBERRY PI PICO          ║
+    ║           RP2040                 ║
+    ║       ┌──────────────┐           ║
+    ║       │  ◉  RP2040   │           ║
+    ║       └──────────────┘           ║
+    ║  GP0-GP29  [■■■■■■■■■■■■■■]    ║
+    ║  Micro-USB [═══]  BOOTSEL [●]   ║
+    ╚══════════════════════════════════╝
 )");
     }
 };
