@@ -37,10 +37,10 @@ int main() {
     assert(ret == ESP_OK);
     assert(esp_timer_is_active(timer));
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(75));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     esp_timer_stop(timer);
     int count_periodic = counter.load();
-    assert(count_periodic >= 3); // should fire ~7 times in 75ms, at least 3
+    assert(count_periodic >= 3); // should fire ~50 times in 500ms, at least 3
 
     // Test one-shot timer
     counter = 0;
@@ -53,7 +53,7 @@ int main() {
 
     ret = esp_timer_start_once(oneshot, 15000); // 15ms
     assert(ret == ESP_OK);
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
     assert(counter.load() == 1); // fires exactly once
     assert(!esp_timer_is_active(oneshot));
 

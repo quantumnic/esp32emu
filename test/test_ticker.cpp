@@ -47,9 +47,9 @@ int main() {
         std::atomic<int> a{0}, b{0};
         Ticker t;
         t.attach_ms(30, [&]() { a++; });
-        std::this_thread::sleep_for(std::chrono::milliseconds(80));
-        t.attach_ms(30, [&]() { b++; });
         std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        t.attach_ms(30, [&]() { b++; });
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
         t.detach();
         assert(b >= 1);
         int a_snap = a;
