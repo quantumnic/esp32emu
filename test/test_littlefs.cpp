@@ -40,6 +40,10 @@ int main() {
     f2.close();
     assert(LittleFS.exists("/subdir/data.txt"));
 
+    // rmdir (recursive)
+    assert(LittleFS.rmdir("/subdir"));
+    assert(!LittleFS.exists("/subdir/data.txt"));
+
     LittleFS.end();
     printf("test_littlefs: all assertions passed\n");
     return 0;

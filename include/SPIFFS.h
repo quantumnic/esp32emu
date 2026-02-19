@@ -106,7 +106,20 @@ public:
 
     bool mkdir(const char* path) {
         auto full = root_ / (path[0] == '/' ? path + 1 : path);
-        return std::filesystem::create_directories(full);
+        std::filesystem::create_directories(full);
+        return std::filesystem::is_directory(full);
+    }
+
+    bool rmdir(const char* path) {
+        auto full = root_ / (path[0] == '/' ? path + 1 : path);
+        return std::filesystem::remove_all(full) > 0;
+    }
+
+    // Open a directory for iteration
+    FSFile openDir(const char* path) {
+        auto full = root_ / (path[0] == '/' ? path + 1 : path);
+        // Return a file representing the directory
+        return FSFile(full.string(), "r");
     }
 
     size_t totalBytes() { return 1048576; }  // 1MB
