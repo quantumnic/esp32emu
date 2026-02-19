@@ -75,6 +75,7 @@ inline void timer_thread(esp_timer_handle_t t) {
             continue;
         }
         std::this_thread::sleep_for(std::chrono::microseconds(t->period_us));
+        std::lock_guard<std::mutex> lock(t->mtx);
         if (t->running.load() && t->alive.load()) {
             t->callback(t->arg);
             t->fire_count++;
@@ -118,7 +119,10 @@ inline int esp_timer_start_once(esp_timer_handle_t t, uint64_t timeout_us) {
 
 inline int esp_timer_stop(esp_timer_handle_t t) {
     if (!t) return ESP_ERR_INVALID_ARG;
-    t->running.store(false);
+    {
+        std::lock_guard<std::mutex> lock(t->mtx);
+        t->running.store(false);
+    }
     return ESP_OK;
 }
 
