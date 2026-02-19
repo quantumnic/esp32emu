@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-13-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-57-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-59-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -64,6 +64,8 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📮 **FreeRTOS Queues** — xQueueCreate, Send, Receive, Peek, SendToFront, ISR variants, cross-thread producer/consumer
 - 🔌 **ESP-IDF I2C driver** — i2c_param_config, i2c_master_cmd_begin, read/write commands, test slave registration
 - ⏲️ **ESP-IDF Timer driver** — Hardware timer groups, counter read, alarm, pause/resume, ISR registration
+- 🔄 **PCNT (Pulse Counter)** — Rotary encoder support, configurable count modes, limits, filters, event thresholds
+- 🌐 **ESP-IDF HTTP server** — `esp_http_server` mock with URI handlers, query parsing, request/response, test dispatch
 - 🧪 **50+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
