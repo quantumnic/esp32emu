@@ -2,6 +2,18 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.6.0] — 2026-02-19
+
+### Added
+- **FreeRTOS Software Timers** (`freertos/timers.h`) — `xTimerCreate`, `xTimerStart`, `xTimerStop`, `xTimerReset`, `xTimerChangePeriod`, `xTimerDelete`, `pvTimerGetTimerID`, `pcTimerGetName`, `xTimerIsTimerActive`, ISR variants, and `timer_test::` helpers for fire count tracking
+- **FreeRTOS Task Notifications** — `xTaskNotify`, `xTaskNotifyGive`, `ulTaskNotifyTake`, `xTaskNotifyWait`, `xTaskGetCurrentTaskHandle`, with `eSetBits`, `eIncrement`, `eSetValueWithOverwrite`, `eSetValueWithoutOverwrite` actions
+- 2 new examples: `freertos_timer_demo` (periodic + one-shot timers), `task_notify_demo` (producer/consumer with notifications)
+
+### Stats
+- **13 boards**, **52 library mocks** (was 50): +FreeRTOS software timers, task notifications
+- **69 tests** (was 67): +test_freertos_timers, test_task_notify
+- **66 examples** (was 64): +freertos_timer_demo, task_notify_demo
+
 ## [v1.5.0] — 2026-02-19
 
 ### Added

@@ -8,9 +8,11 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
+#include <condition_variable>
 #include <functional>
 #include <vector>
 #include <atomic>
+#include <map>
 
 typedef void* TaskHandle_t;
 typedef void (*TaskFunction_t)(void*);
@@ -32,14 +34,34 @@ typedef unsigned int UBaseType_t;
 typedef void* SemaphoreHandle_t;
 typedef void* QueueHandle_t;
 
+// Task notification actions
+typedef enum {
+    eNoAction = 0,
+    eSetBits,
+    eIncrement,
+    eSetValueWithOverwrite,
+    eSetValueWithoutOverwrite
+} eNotifyAction;
+
 namespace esp32emu {
 namespace freertos {
+
+struct TaskNotification {
+    std::mutex mtx;
+    std::condition_variable cv;
+    uint32_t value{0};
+    bool pending{false};
+};
 
 struct TaskRecord {
     std::thread thread;
     std::string name;
     std::atomic<bool> running{true};
+    TaskNotification notification;
 };
+
+// Thread-local current task handle (set in xTaskCreate thread)
+inline thread_local TaskRecord* currentTask = nullptr;
 
 inline std::vector<TaskRecord*>& taskList() {
     static std::vector<TaskRecord*> tasks;
@@ -81,6 +103,7 @@ inline BaseType_t xTaskCreate(
     auto* rec = new esp32emu::freertos::TaskRecord();
     rec->name = pcName ? pcName : "task";
     rec->thread = std::thread([pvTaskCode, pvParameters, rec]() {
+        esp32emu::freertos::currentTask = rec;
         fprintf(stderr, "[esp32emu] Task '%s' started (tid=%p)\n", rec->name.c_str(), (void*)rec);
         pvTaskCode(pvParameters);
         fprintf(stderr, "[esp32emu] Task '%s' ended\n", rec->name.c_str());
@@ -160,4 +183,76 @@ inline BaseType_t xSemaphoreGive(SemaphoreHandle_t xSemaphore) {
 inline void vSemaphoreDelete(SemaphoreHandle_t xSemaphore) {
     auto* mtx = static_cast<std::mutex*>(xSemaphore);
     delete mtx;
+}
+
+// --- Task Current Handle ---
+inline TaskHandle_t xTaskGetCurrentTaskHandle() {
+    return (TaskHandle_t)esp32emu::freertos::currentTask;
+}
+
+// --- Task Notifications ---
+inline BaseType_t xTaskNotify(TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction) {
+    auto* rec = static_cast<esp32emu::freertos::TaskRecord*>(xTaskToNotify);
+    std::lock_guard<std::mutex> lock(rec->notification.mtx);
+    switch (eAction) {
+        case eSetBits:
+            rec->notification.value |= ulValue;
+            break;
+        case eIncrement:
+            rec->notification.value++;
+            break;
+        case eSetValueWithOverwrite:
+            rec->notification.value = ulValue;
+            break;
+        case eSetValueWithoutOverwrite:
+            if (rec->notification.pending) return pdFAIL;
+            rec->notification.value = ulValue;
+            break;
+        case eNoAction:
+        default:
+            break;
+    }
+    rec->notification.pending = true;
+    rec->notification.cv.notify_all();
+    return pdPASS;
+}
+
+inline BaseType_t xTaskNotifyGive(TaskHandle_t xTaskToNotify) {
+    return xTaskNotify(xTaskToNotify, 0, eIncrement);
+}
+
+inline uint32_t ulTaskNotifyTake(BaseType_t xClearCountOnExit, TickType_t xTicksToWait) {
+    auto* rec = esp32emu::freertos::currentTask;
+    if (!rec) return 0;
+    std::unique_lock<std::mutex> lock(rec->notification.mtx);
+    if (!rec->notification.pending && xTicksToWait > 0) {
+        auto dur = std::chrono::milliseconds(xTicksToWait * portTICK_PERIOD_MS);
+        rec->notification.cv.wait_for(lock, dur, [rec]{ return rec->notification.pending; });
+    }
+    if (!rec->notification.pending) return 0;
+    uint32_t val = rec->notification.value;
+    if (xClearCountOnExit) {
+        rec->notification.value = 0;
+    } else {
+        if (rec->notification.value > 0) rec->notification.value--;
+    }
+    rec->notification.pending = (rec->notification.value > 0);
+    return val;
+}
+
+inline BaseType_t xTaskNotifyWait(uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit,
+                                   uint32_t* pulNotificationValue, TickType_t xTicksToWait) {
+    auto* rec = esp32emu::freertos::currentTask;
+    if (!rec) return pdFAIL;
+    std::unique_lock<std::mutex> lock(rec->notification.mtx);
+    rec->notification.value &= ~ulBitsToClearOnEntry;
+    if (!rec->notification.pending && xTicksToWait > 0) {
+        auto dur = std::chrono::milliseconds(xTicksToWait * portTICK_PERIOD_MS);
+        rec->notification.cv.wait_for(lock, dur, [rec]{ return rec->notification.pending; });
+    }
+    if (!rec->notification.pending) return pdFAIL;
+    if (pulNotificationValue) *pulNotificationValue = rec->notification.value;
+    rec->notification.value &= ~ulBitsToClearOnExit;
+    rec->notification.pending = false;
+    return pdPASS;
 }
