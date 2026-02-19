@@ -22,6 +22,11 @@ typedef bool boolean;
 #define HIGH 1
 #define LOW  0
 
+#define DEC 10
+#define HEX 16
+#define OCT 8
+#define BIN 2
+
 #define LED_BUILTIN 2
 
 #define A0 36
@@ -47,6 +52,7 @@ inline long arduino_map(long x,long in_min,long in_max,long out_min,long out_max
 #include "esp32emu_serial.h"
 #include "esp32emu_string.h"
 #include "esp32emu_ledc.h"
+#include "ESP.h"
 
 inline long random(long mx){return std::rand()%mx;}
 inline long random(long mn,long mx){return mn+std::rand()%(mx-mn);}

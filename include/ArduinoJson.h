@@ -67,6 +67,8 @@ public:
     JsonVariantBase& operator=(bool v) { node_->type = JsonNode::Bool; node_->bVal = v; return *this; }
     JsonVariantBase& operator=(int v) { node_->type = JsonNode::Int; node_->iVal = v; return *this; }
     JsonVariantBase& operator=(long v) { node_->type = JsonNode::Int; node_->iVal = v; return *this; }
+    JsonVariantBase& operator=(unsigned int v) { node_->type = JsonNode::Int; node_->iVal = static_cast<long>(v); return *this; }
+    JsonVariantBase& operator=(unsigned long v) { node_->type = JsonNode::Int; node_->iVal = static_cast<long>(v); return *this; }
     JsonVariantBase& operator=(double v) { node_->type = JsonNode::Float; node_->fVal = v; return *this; }
     JsonVariantBase& operator=(float v) { node_->type = JsonNode::Float; node_->fVal = v; return *this; }
     JsonVariantBase& operator=(const char* v) { node_->type = JsonNode::String; node_->sVal = v ? v : ""; return *this; }

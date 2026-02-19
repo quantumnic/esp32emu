@@ -69,13 +69,14 @@ void loop() {
         // Simple HSV→RGB (hue only, full saturation/value)
         uint8_t region = h / 43;
         uint8_t frac = (h - region * 43) * 6;
+        uint8_t f = static_cast<uint8_t>(frac);
         switch (region) {
-            case 0: leds[i] = {255, frac, 0}; break;
-            case 1: leds[i] = {255 - frac, 255, 0}; break;
-            case 2: leds[i] = {0, 255, frac}; break;
-            case 3: leds[i] = {0, 255 - frac, 255}; break;
-            case 4: leds[i] = {frac, 0, 255}; break;
-            default: leds[i] = {255, 0, 255 - frac}; break;
+            case 0: leds[i] = {255, f, 0}; break;
+            case 1: leds[i] = {static_cast<uint8_t>(255 - f), 255, 0}; break;
+            case 2: leds[i] = {0, 255, f}; break;
+            case 3: leds[i] = {0, static_cast<uint8_t>(255 - f), 255}; break;
+            case 4: leds[i] = {f, 0, 255}; break;
+            default: leds[i] = {255, 0, static_cast<uint8_t>(255 - f)}; break;
         }
     }
     ws2812_show();

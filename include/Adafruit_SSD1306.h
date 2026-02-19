@@ -92,6 +92,9 @@ public:
 
     void print(const char* s) { _currentLine += s; }
     void print(int v) { _currentLine += std::to_string(v); }
+    void print(long v) { _currentLine += std::to_string(v); }
+    void print(unsigned long v) { _currentLine += std::to_string(v); }
+    void print(unsigned int v) { _currentLine += std::to_string(v); }
     void print(float v, int dec = 2) {
         char buf[32];
         snprintf(buf, sizeof(buf), "%.*f", dec, v);
