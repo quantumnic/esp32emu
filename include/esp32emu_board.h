@@ -17,7 +17,8 @@ enum class BoardType {
     ARDUINO_NANO,
     RP2040,
     TEENSY40,
-    STM32_BLUEPILL
+    STM32_BLUEPILL,
+    ESP32_C2
 };
 
 struct BoardConfig {
@@ -48,6 +49,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::RP2040,       "RP2040 Pico",  "RP2040",      30, 4,  264000,  2097152, 133, false, false, 25},
         {BoardType::TEENSY40,     "Teensy 4.0",   "IMXRT1062",   40, 14, 1048576, 2097152, 600, false, false, 13},
         {BoardType::STM32_BLUEPILL,"STM32 Blue Pill","STM32F103C8",37, 10, 20480,  65536,   72,  false, false, 13},
+        {BoardType::ESP32_C2,     "ESP32-C2",     "ESP32-C2",    20, 5,  272384,  4194304, 120, true,  true,  8},
     };
     return configs[static_cast<int>(t)];
 }
@@ -64,6 +66,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "pico" || name == "rp2040")      return BoardType::RP2040;
     if (name == "teensy" || name == "teensy40" || name == "teensy4.0") return BoardType::TEENSY40;
     if (name == "bluepill" || name == "stm32" || name == "stm32f103") return BoardType::STM32_BLUEPILL;
+    if (name == "esp32c2" || name == "esp32-c2") return BoardType::ESP32_C2;
     return BoardType::ESP32; // default
 }
 
@@ -128,6 +131,7 @@ public:
             case BoardType::RP2040:       printRP2040ASCII(); break;
             case BoardType::TEENSY40:     printTeensy40ASCII(); break;
             case BoardType::STM32_BLUEPILL: printBluePillASCII(); break;
+            case BoardType::ESP32_C2:     printESP32C2ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -275,6 +279,19 @@ private:
     ║  D0-D39    [■■■■■■■■■■■■■■■■]  ║
     ║  A0-A13    [■■■■■■■■■■■■■■]    ║
     ║  Micro-USB [═══]  Program [●]   ║
+    ╚══════════════════════════════════╝
+)");
+    }
+
+    void printESP32C2ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║       ESP32-C2 (RISC-V)          ║
+    ║          ┌──────────┐            ║
+    ║          │ ████████ │ WiFi/BT5   ║
+    ║          └──────────┘            ║
+    ║  GPIO 0-19  [■■■■■■■■■]        ║
+    ║  PWR  [●]  USB-C [═══]          ║
     ╚══════════════════════════════════╝
 )");
     }
