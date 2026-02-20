@@ -1,5 +1,8 @@
 // FreeRTOS Task Notification demo — producer/consumer with notify
 // Producer gives notifications, consumer takes them
+#include <Arduino.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 static TaskHandle_t consumerHandle = nullptr;
 

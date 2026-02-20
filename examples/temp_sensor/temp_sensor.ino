@@ -1,6 +1,7 @@
 // ESP32 Internal Temperature Sensor example
 // Reads the on-chip temperature sensor periodically
 #include <Arduino.h>
+#include "esp_err.h"
 #include "driver/temperature_sensor.h"
 
 temperature_sensor_handle_t temp_handle = nullptr;

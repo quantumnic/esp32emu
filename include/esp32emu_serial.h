@@ -45,6 +45,7 @@ public:
 
     size_t write(uint8_t c)              { return fputc(c, stdout) != EOF ? 1 : 0; }
     size_t write(const uint8_t* buf, size_t sz) { return fwrite(buf, 1, sz, stdout); }
+    size_t write(const char* buf, size_t sz)   { return fwrite(buf, 1, sz, stdout); }
     size_t write(const char* s)          { return fprintf(stdout, "%s", s); }
 
     int available() { return 0; }

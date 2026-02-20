@@ -20,3 +20,7 @@ typedef int esp_err_t;
 #define ESP_ERR_INVALID_VERSION  0x10A
 #define ESP_ERR_INVALID_MAC     0x10B
 #endif
+
+#ifndef ESP_ERROR_CHECK
+#define ESP_ERROR_CHECK(x) do { esp_err_t __err = (x); (void)__err; } while(0)
+#endif
