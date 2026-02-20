@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-13-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-81-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-84-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -78,6 +78,9 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📦 **Partition Table** — esp_partition find/read/write/erase with default partition layout
 - 🔄 **OTA Updates** — esp_ota begin/write/end, boot partition management, app description
 - 🎵 **ESP-IDF I2S Driver** — Legacy I2S API with install/uninstall, TX/RX, pin config, sample rate
+- 📡 **ESP-IDF MQTT Client** — `esp_mqtt_client` with connect, publish, subscribe, QoS, event callbacks, test injection
+- ⏱️ **GPTimer (v5 API)** — General purpose timer with alarm, auto-reload, count up/down, event callbacks
+- 💾 **ESP-IDF SPIFFS** — `esp_vfs_spiffs` register/unregister, info, format, mount state tracking
 - 🖥️ **ESP-IDF Console** — `esp_console` command registration, dispatch, argument parsing, built-in help
 - 🌡️ **Temperature Sensor** — ESP32 internal temp sensor driver with install/enable/read, test injection
 - 📂 **LittleFS** — LittleFS filesystem mock backed by host filesystem, same API as SPIFFS
@@ -89,7 +92,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🔐 **HTTPS Server** — `esp_https_server` wrapper with SSL config, delegates to HTTP mock
 - 🎲 **Hardware RNG** — `esp_random` / `esp_fill_random` backed by host PRNG
 - 🏷️ **MAC Address** — `esp_mac` base/interface MAC read, local MAC derivation
-- 🧪 **60+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
+- 🧪 **65+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
 ## 🚀 Quick Start
@@ -162,6 +165,9 @@ make test
 | [`mcpwm_motor/`](examples/mcpwm_motor/) | MCPWM DC motor control with speed/direction | ESP32 |
 | [`http_client_idf/`](examples/http_client_idf/) | ESP-IDF HTTP client with event handler | ESP32 |
 | [`sigmadelta_led/`](examples/sigmadelta_led/) | Sigma-delta LED dimming | ESP32 |
+| [`mqtt_client.cpp`](examples/mqtt_client.cpp) | ESP-IDF MQTT pub/sub with event handler | ESP32 |
+| [`gptimer.cpp`](examples/gptimer.cpp) | GPTimer v5 periodic alarm with auto-reload | ESP32 |
+| [`esp_spiffs.cpp`](examples/esp_spiffs.cpp) | ESP-IDF SPIFFS mount, info, format | ESP32 |
 
 > 📖 See [docs/examples.md](docs/examples.md) for detailed walkthroughs of each example.
 
