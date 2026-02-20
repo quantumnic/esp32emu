@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-13-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-85-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-89-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -94,6 +94,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🏷️ **MAC Address** — `esp_mac` base/interface MAC read, local MAC derivation
 - 🌐 **WebSocket Client** — `esp_websocket_client` with connect, send text/binary, events, receive injection, test helpers
 - 🧩 **SoC Headers** — `soc/soc.h`, `soc/gpio_num.h`, `soc/rtc.h`, `soc/timer_group_struct.h` stubs for compatibility
+- 🌡️ **BME280 Sensor** — Temperature, humidity, pressure, altitude with configurable sampling modes
+- 🌡️ **AHT10/AHT20 Sensor** — Temperature & humidity sensor mock with error detection
+- 🎛️ **PCA9685 PWM Driver** — 16-channel I2C PWM servo driver with frequency, sleep, microsecond control
+- 📂 **ESP-IDF VFS** — Virtual File System registration/unregistration mock with path prefixes
 - 🧪 **65+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
@@ -170,6 +174,10 @@ make test
 | [`mqtt_client.cpp`](examples/mqtt_client.cpp) | ESP-IDF MQTT pub/sub with event handler | ESP32 |
 | [`gptimer.cpp`](examples/gptimer.cpp) | GPTimer v5 periodic alarm with auto-reload | ESP32 |
 | [`esp_spiffs.cpp`](examples/esp_spiffs.cpp) | ESP-IDF SPIFFS mount, info, format | ESP32 |
+| [`bme280_weather.cpp`](examples/bme280_weather.cpp) | BME280 weather station (temp/hum/press/alt) | ESP32 |
+| [`pca9685_servo.cpp`](examples/pca9685_servo.cpp) | PCA9685 16-ch servo sweep + microseconds | ESP32 |
+| [`aht20_sensor.cpp`](examples/aht20_sensor.cpp) | AHT20 temperature & humidity readings | ESP32 |
+| [`vfs_register.cpp`](examples/vfs_register.cpp) | ESP-IDF VFS register/unregister custom FS | ESP32 |
 
 > 📖 See [docs/examples.md](docs/examples.md) for detailed walkthroughs of each example.
 
@@ -246,6 +254,10 @@ The emulator renders rich visual output directly in your terminal:
 | `Ticker.h` | ✅ | Non-blocking timer callbacks |
 | `OneWire.h` | ✅ | OneWire bus mock with device search |
 | `DallasTemperature.h` | ✅ | DS18B20 temperature sensor mock |
+| `Adafruit_BME280.h` | ✅ | BME280 temp, humidity, pressure, altitude |
+| `AHTxx.h` | ✅ | AHT10/AHT20 temperature & humidity |
+| `Adafruit_PWMServoDriver.h` | ✅ | PCA9685 16-channel PWM servo driver |
+| `esp_vfs.h` | ✅ | Virtual File System registration mock |
 
 ## 🔧 Use as a Library
 
@@ -365,6 +377,14 @@ PlatformIO native mode doesn't provide WiFi, WebServer, or networking. esp32emu 
 </details>
 
 ## 📋 Changelog
+
+### v0.6.0
+- 🌡️ **BME280 sensor** — temperature, humidity, pressure, altitude with sampling modes
+- 🌡️ **AHT10/AHT20 sensor** — temperature & humidity mock with error detection
+- 🎛️ **PCA9685 PWM driver** — 16-channel I2C servo driver with frequency, sleep, microseconds
+- 📂 **ESP-IDF VFS** — Virtual File System register/unregister mock with path prefixes
+- 📁 4 new examples: BME280 weather station, PCA9685 servo, AHT20 sensor, VFS registration
+- 🧪 4 new tests (93 total): BME280, PCA9685, AHTxx, VFS
 
 ### v0.5.0
 - 💾 **SD card library** — full mock with read/write/mkdir/remove backed by host filesystem
