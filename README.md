@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-14-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-105-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-108-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -98,6 +98,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🏷️ **MAC Address** — `esp_mac` base/interface MAC read, local MAC derivation
 - 🌐 **WebSocket Client** — `esp_websocket_client` with connect, send text/binary, events, receive injection, test helpers
 - 🧩 **SoC Headers** — `soc/soc.h`, `soc/gpio_num.h`, `soc/rtc.h`, `soc/timer_group_struct.h` stubs for compatibility
+- 🌫️ **BME680 Gas Sensor** — Temperature, humidity, pressure, gas resistance (air quality), altitude, oversampling, IIR filter
+- 🌡️ **SHT31 Sensor** — Temperature/humidity with heater control, status register, dual readout
+- 📬 **AsyncMqttClient** — Async MQTT client mock with connect, pub/sub, QoS, message injection, callbacks
+- 🔐 **CRT Bundle** — `esp_crt_bundle_attach` stub for HTTPS certificate bundle compatibility
 - 🌡️ **BME280 Sensor** — Temperature, humidity, pressure, altitude with configurable sampling modes
 - 🌡️ **AHT10/AHT20 Sensor** — Temperature & humidity sensor mock with error detection
 - 🎛️ **PCA9685 PWM Driver** — 16-channel I2C PWM servo driver with frequency, sleep, microsecond control
