@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-14-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-164-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-169-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -163,6 +163,11 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🧭 **QMC5883L Magnetometer** — 3-axis compass, heading calculation, calibration offsets, temperature readout
 - ⚙️ **DRV8825 Stepper Driver** — STEP/DIR stepper control, microstepping, RPM, angle/position tracking
 - 💾 **SDMMC/SDSPI Host Drivers** — ESP-IDF `sdmmc_host.h` and `sdspi_host.h` for SD card host initialization
+- 👆 **MPR121 Capacitive Touch** — 12-channel touch sensor, filtered/baseline data, thresholds, individual channel control
+- 📐 **LIS3DH Accelerometer** — 3-axis accelerometer, configurable range/data rate, click detection, event API
+- ⚡ **INA260 Power Monitor** — Precision power measurement, voltage/current/power, averaging, conversion time, alerts
+- 🌬️ **SCD30 CO2 Sensor** — CO2/temperature/humidity, measurement interval, altitude compensation, auto-calibration
+- 🌡️ **BMP3XX (BMP388/390)** — High-accuracy pressure/temperature, oversampling, IIR filter, altitude calculation
 - 🧪 **80+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
