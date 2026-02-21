@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-14-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-116-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-121-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -78,6 +78,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📦 **Partition Table** — esp_partition find/read/write/erase with default partition layout
 - 🔄 **OTA Updates** — esp_ota begin/write/end, boot partition management, app description
 - 🎵 **ESP-IDF I2S Driver** — Legacy I2S API with install/uninstall, TX/RX, pin config, sample rate
+- 🛰️ **TinyGPS++** — NMEA GGA/RMC parsing, location, speed, altitude, distance/course calculations
+- 📻 **LoRa (SX1276/78)** — SPI LoRa radio mock with TX/RX, packet injection, RSSI/SNR, configuration
+- 💡 **NeoPixelBus** — Alternative addressable LED library with RgbColor, HslColor, rotate/shift, blend
+- 📊 **ADC Oneshot driver** — New ESP-IDF ADC API with unit/channel config, raw reads, test value injection
 - 🔌 **ESP-IDF UART Driver** — UART port config, TX/RX with buffered data, multi-port, test injection
 - 🔐 **ESP eFuse** — Chip revision, block read/write, key blocks, test helpers
 - 📡 **SoftwareSerial** — Bit-banged serial mock with RX injection, multi-instance support
