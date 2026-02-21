@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-14-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-124-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-128-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -78,6 +78,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📦 **Partition Table** — esp_partition find/read/write/erase with default partition layout
 - 🔄 **OTA Updates** — esp_ota begin/write/end, boot partition management, app description
 - 🎵 **ESP-IDF I2S Driver** — Legacy I2S API with install/uninstall, TX/RX, pin config, sample rate
+- 📺 **ILI9341 TFT Display** — 240x320 SPI display mock with pixels, shapes, text, rotation, framebuffer readback
+- 🌡️ **MAX6675 Thermocouple** — K-type thermocouple sensor, Celsius/Fahrenheit, test injection
+- 📦 **FreeRTOS Stream Buffers** — xStreamBufferCreate, Send, Receive, ISR variants, message buffers
+- ⚡ **ESP-IDF Power Management** — esp_pm configure, frequency locks, light sleep control
 - 🛰️ **TinyGPS++** — NMEA GGA/RMC parsing, location, speed, altitude, distance/course calculations
 - 📻 **LoRa (SX1276/78)** — SPI LoRa radio mock with TX/RX, packet injection, RSSI/SNR, configuration
 - 💡 **NeoPixelBus** — Alternative addressable LED library with RgbColor, HslColor, rotate/shift, blend
@@ -207,6 +211,10 @@ make test
 | [`pca9685_servo.cpp`](examples/pca9685_servo.cpp) | PCA9685 16-ch servo sweep + microseconds | ESP32 |
 | [`aht20_sensor.cpp`](examples/aht20_sensor.cpp) | AHT20 temperature & humidity readings | ESP32 |
 | [`vfs_register.cpp`](examples/vfs_register.cpp) | ESP-IDF VFS register/unregister custom FS | ESP32 |
+| [`max6675_thermocouple.cpp`](examples/max6675_thermocouple.cpp) | MAX6675 K-type thermocouple temp reading | ESP32 |
+| [`ili9341_graphics.cpp`](examples/ili9341_graphics.cpp) | ILI9341 TFT display with shapes and text | ESP32 |
+| [`stream_buffer_producer.cpp`](examples/stream_buffer_producer.cpp) | FreeRTOS stream buffer producer/consumer | ESP32 |
+| [`power_management.cpp`](examples/power_management.cpp) | ESP-IDF power management with freq locks | ESP32 |
 
 > 📖 See [docs/examples.md](docs/examples.md) for detailed walkthroughs of each example.
 
