@@ -2,6 +2,18 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.7.0] — 2026-02-21
+
+### Added
+- **MFRC522 RFID Reader** mock — card detection, UID read, MIFARE authentication, block read/write, PICC type identification
+- **Adafruit MLX90614** IR thermometer mock — contactless object/ambient temperature in °C/°F, emissivity control
+- **CCS811 Air Quality Sensor** mock — eCO2/TVOC readings, drive modes, baseline calibration, environmental compensation
+- **RCSwitch 433MHz RF** mock — transmit/receive RF codes, protocol/timing config, Type A/B switch helpers
+- **AS5600 Magnetic Rotary Encoder** mock — 12-bit angle, degrees, magnet status, AGC, cumulative position, direction
+- 5 new examples: `rfid_access`, `mlx90614_ir_temp`, `ccs811_air_quality`, `rcswitch_rf433`, `as5600_encoder`
+- 5 new tests: `test_mfrc522`, `test_mlx90614`, `test_ccs811`, `test_rcswitch`, `test_as5600`
+- **145 tests, 140 examples** total
+
 ## [v1.6.0] — 2026-02-19
 
 ### Added
