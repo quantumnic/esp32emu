@@ -62,6 +62,12 @@ int main() {
     assert(parseBoardName("bluepill") == BoardType::STM32_BLUEPILL);
     assert(parseBoardName("stm32") == BoardType::STM32_BLUEPILL);
     assert(parseBoardName("uno") == BoardType::ARDUINO_UNO);
+    assert(parseBoardName("m5core2") == BoardType::M5STACK_CORE2);
+    assert(parseBoardName("m5stack-core2") == BoardType::M5STACK_CORE2);
+    assert(parseBoardName("m5stack") == BoardType::M5STACK_CORE2);
+    assert(parseBoardName("tdisplay-s3") == BoardType::LILYGO_TDISPLAY_S3);
+    assert(parseBoardName("lilygo-tdisplay") == BoardType::LILYGO_TDISPLAY_S3);
+    assert(parseBoardName("t-display-s3") == BoardType::LILYGO_TDISPLAY_S3);
     assert(parseBoardName("unknown") == BoardType::ESP32); // default
 
     // Test Board singleton
@@ -72,6 +78,18 @@ int main() {
     Board::instance().setBoard(BoardType::ESP32_C6);
     assert(Board::instance().config().digital_pins == 31);
     assert(!Board::instance().checkWiFi() == false); // C6 has WiFi, so checkWiFi returns true
+
+    // Test M5Stack Core2
+    Board::instance().setBoard(BoardType::M5STACK_CORE2);
+    assert(Board::instance().config().cpu_freq_mhz == 240);
+    assert(Board::instance().config().has_wifi == true);
+    assert(Board::instance().config().builtin_led == -1);
+
+    // Test LilyGO T-Display S3
+    Board::instance().setBoard(BoardType::LILYGO_TDISPLAY_S3);
+    assert(Board::instance().config().cpu_freq_mhz == 240);
+    assert(Board::instance().config().has_wifi == true);
+    assert(Board::instance().config().digital_pins == 46);
 
     // Reset
     Board::instance().setBoard(BoardType::ESP32);

@@ -74,3 +74,53 @@ pinMode(20, OUTPUT);  // ✅ ESP32 has 40 digital pins
 ```
 
 Warnings are printed to stderr but execution continues (matching real Arduino behavior where out-of-range pins are silently ignored).
+
+---
+
+## M5Stack Core2
+
+```
+./esp32emu run --board m5core2 examples/m5stack_core2_demo.cpp
+```
+
+| Feature     | Value |
+|------------|-------|
+| Chip       | ESP32-D0WDQ6 |
+| CPU        | 240 MHz |
+| RAM        | 512 KB |
+| Flash      | 16 MB |
+| GPIO       | 40 digital, 8 analog |
+| WiFi       | ✅ |
+| Bluetooth  | ✅ |
+| Built-in LED | None |
+
+**Best for:** IoT projects with built-in display, touch, IMU, speaker, battery management.
+
+**Limitations:**
+- Built-in LED pin is -1 (no dedicated LED)
+- Many GPIOs used internally for display, touch, etc.
+
+---
+
+## LilyGO T-Display S3
+
+```
+./esp32emu run --board tdisplay-s3 sketch.ino
+```
+
+| Feature     | Value |
+|------------|-------|
+| Chip       | ESP32-S3 |
+| CPU        | 240 MHz |
+| RAM        | 512 KB |
+| Flash      | 16 MB |
+| GPIO       | 46 digital, 10 analog |
+| WiFi       | ✅ |
+| Bluetooth  | ✅ |
+| Built-in LED | None |
+
+**Best for:** Portable projects with built-in 1.9" TFT display, USB-C, battery charging.
+
+**Limitations:**
+- Several GPIOs used by the display (ST7789)
+- Built-in LED pin is -1

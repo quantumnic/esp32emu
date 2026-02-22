@@ -22,7 +22,9 @@ enum class BoardType {
     ESP32_P4,
     ESP32_C5,
     XIAO_ESP32S3,
-    FEATHER_ESP32S3
+    FEATHER_ESP32S3,
+    M5STACK_CORE2,
+    LILYGO_TDISPLAY_S3
 };
 
 struct BoardConfig {
@@ -58,6 +60,8 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::ESP32_C5,     "ESP32-C5",     "ESP32-C5",    29, 6,  524288,  4194304, 240, true,  true,  8},
         {BoardType::XIAO_ESP32S3, "XIAO ESP32-S3","ESP32-S3",   11, 9,  524288,  8388608, 240, true,  true,  21},
         {BoardType::FEATHER_ESP32S3, "Feather ESP32-S3","ESP32-S3", 21, 6, 524288, 8388608, 240, true, true, 13},
+        {BoardType::M5STACK_CORE2,  "M5Stack Core2", "ESP32-D0WDQ6", 40, 8, 524288, 16777216, 240, true, true, -1},
+        {BoardType::LILYGO_TDISPLAY_S3, "LilyGO T-Display S3","ESP32-S3", 46, 10, 524288, 16777216, 240, true, true, -1},
     };
     return configs[static_cast<int>(t)];
 }
@@ -78,6 +82,8 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "esp32p4" || name == "esp32-p4") return BoardType::ESP32_P4;
     if (name == "esp32c5" || name == "esp32-c5") return BoardType::ESP32_C5;
     if (name == "xiao" || name == "xiao-s3" || name == "xiao-esp32s3") return BoardType::XIAO_ESP32S3;
+    if (name == "m5core2" || name == "m5stack-core2" || name == "m5stack") return BoardType::M5STACK_CORE2;
+    if (name == "tdisplay-s3" || name == "lilygo-tdisplay" || name == "t-display-s3") return BoardType::LILYGO_TDISPLAY_S3;
     return BoardType::ESP32; // default
 }
 
