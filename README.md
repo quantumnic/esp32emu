@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-15-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-195-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-200-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -182,6 +182,11 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - ⚡ **INA260 Power Monitor** — Precision power measurement, voltage/current/power, averaging, conversion time, alerts
 - 🌬️ **SCD30 CO2 Sensor** — CO2/temperature/humidity, measurement interval, altitude compensation, auto-calibration
 - 🌡️ **BMP3XX (BMP388/390)** — High-accuracy pressure/temperature, oversampling, IIR filter, altitude calculation
+- 🎆 **WS2812FX** — LED effects library with 47 built-in modes (rainbow, chase, sparkle, fire, etc.), speed/color control
+- 🌡️ **HTU21D-F Sensor** — Humidity and temperature sensor mock with test injection, begin/read/reset
+- 🏋️ **LSM6DS IMU Family** — LSM6DSO/DSOX/DS33 6-axis accelerometer/gyroscope, configurable range/rate, event API
+- 🔌 **MCP4728 4-ch DAC** — 12-bit quad DAC with channel set, fast write, VREF/gain config, EEPROM save
+- 🔗 **USB Serial/JTAG** — ESP32-S3/C3 USB Serial/JTAG driver mock with read/write, RX injection, install/uninstall
 - 🧪 **80+ library mocks** — Drop-in replacements for Arduino and ESP-IDF APIs
 - 📦 **Zero dependencies** — Only C++ stdlib + POSIX
 
