@@ -202,3 +202,46 @@ inline esp_err_t nvs_erase_all(nvs_handle_t h) {
 inline esp_err_t nvs_commit(nvs_handle_t) {
     return ESP_OK; // no-op in emulator
 }
+
+// ── Additional typed getters/setters (i8, u8, i16, u16, i64, u64) ──
+#define NVS_TYPED_SET(suffix, type) \
+inline esp_err_t nvs_set_##suffix(nvs_handle_t h, const char* key, type value) { \
+    auto& s = esp32emu::nvs::NVSStore::instance(); \
+    std::lock_guard<std::mutex> lk(s.mtx); \
+    auto it = s.handles.find(h); \
+    if (it == s.handles.end()) return ESP_ERR_NVS_INVALID_HANDLE; \
+    if (it->second.second != NVS_READWRITE) return ESP_FAIL; \
+    std::string blob(reinterpret_cast<const char*>(&value), sizeof(value)); \
+    s.data[it->second.first][key] = blob; \
+    return ESP_OK; \
+}
+
+#define NVS_TYPED_GET(suffix, type) \
+inline esp_err_t nvs_get_##suffix(nvs_handle_t h, const char* key, type* out) { \
+    auto& s = esp32emu::nvs::NVSStore::instance(); \
+    std::lock_guard<std::mutex> lk(s.mtx); \
+    auto it = s.handles.find(h); \
+    if (it == s.handles.end()) return ESP_ERR_NVS_INVALID_HANDLE; \
+    auto& ns_data = s.data[it->second.first]; \
+    auto kit = ns_data.find(key); \
+    if (kit == ns_data.end()) return ESP_ERR_NVS_NOT_FOUND; \
+    if (kit->second.size() != sizeof(type)) return ESP_FAIL; \
+    std::memcpy(out, kit->second.data(), sizeof(type)); \
+    return ESP_OK; \
+}
+
+NVS_TYPED_SET(i8, int8_t)
+NVS_TYPED_GET(i8, int8_t)
+NVS_TYPED_SET(u8, uint8_t)
+NVS_TYPED_GET(u8, uint8_t)
+NVS_TYPED_SET(i16, int16_t)
+NVS_TYPED_GET(i16, int16_t)
+NVS_TYPED_SET(u16, uint16_t)
+NVS_TYPED_GET(u16, uint16_t)
+NVS_TYPED_SET(i64, int64_t)
+NVS_TYPED_GET(i64, int64_t)
+NVS_TYPED_SET(u64, uint64_t)
+NVS_TYPED_GET(u64, uint64_t)
+
+#undef NVS_TYPED_SET
+#undef NVS_TYPED_GET
