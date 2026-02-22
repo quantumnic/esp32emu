@@ -2,6 +2,18 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.8.0] — 2026-02-22
+
+### Added
+- **TMC2209** stepper driver mock — UART config, StealthChop/CoolStep, StallGuard, velocity control, current settings
+- **Adafruit AMG88xx** thermal camera mock — 8x8 IR pixel array, thermistor, frame rate, power modes, interrupts
+- **PID_v1** controller mock — PID auto/manual mode, output limits, sample time, P_ON_M/P_ON_E, DIRECT/REVERSE
+- **MQ135** gas sensor mock — air quality PPM, temperature/humidity correction, RZero calibration
+- **ESP Console** test — command registration, dispatch, help, argument parsing
+- **Temperature Sensor** test — ESP-IDF internal temp sensor install/enable/read/inject
+- 6 new examples: esp_console_cli, tmc2209_stepper, amg88xx_thermal, pid_temperature, mq135_air_quality, temp_sensor_internal
+- Total: **189 tests**, **183 examples**
+
 ## [v1.7.0] — 2026-02-21
 
 ### Added

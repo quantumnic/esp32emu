@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-15-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-177-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-183-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -98,6 +98,12 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🏋️ **BMI270 6-axis IMU** — Accelerometer/gyroscope, step counter, I2C/SPI init, configurable ODR/range
 - 🔒 **mbedTLS SSL** — SSL context/config, handshake, read/write, ciphersuite query, client/server mock
 - 🧵 **esp_pthread** — Thread configuration: stack size, priority, core pinning
+- 🔧 **TMC2209** — Trinamic UART stepper driver with StealthChop, CoolStep, StallGuard, velocity control
+- 🌡️ **AMG88xx Thermal Camera** — 8x8 IR thermal sensor array, pixel read, interrupt, power modes
+- 🎛️ **PID Controller** — PID_v1 library with auto/manual mode, output limits, sample time, P_ON_M/P_ON_E
+- 💨 **MQ135 Gas Sensor** — Air quality sensor with PPM, temperature/humidity correction, RZero calibration
+- 🌡️ **Internal Temperature Sensor** — ESP-IDF temperature_sensor driver with install/enable/read
+- 🖥️ **ESP Console** — ESP-IDF console component with command registration, parsing, dispatch
 - 📋 **cJSON** — ESP-IDF native JSON library: create, parse, print, iterate, modify objects and arrays
 - 🧠 **Heap Caps** — `heap_caps_malloc/free/realloc`, free size queries, PSRAM/DMA/internal caps, `multi_heap_info_t`
 - 🔐 **mbedTLS** — SHA-256 hash (one-shot + streaming), HMAC, Base64 encode/decode for crypto workflows
