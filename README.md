@@ -8,8 +8,8 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
-    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-21-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-236-orange.svg" alt="Examples"></a>
+    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-22-green.svg" alt="Boards"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-242-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📡 **WiFi simulation** — STA/AP mode, connection lifecycle, scan results
 - 🖥️ **Rich Terminal UI** — Colored output, pin visualization, ASCII board diagrams
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
-- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
+- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
 - 😴 **Deep sleep mock** — Test power management without exiting
@@ -78,6 +78,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - ⏲️ **FreeRTOS Software Timers** — xTimerCreate, Start, Stop, Reset, ChangePeriod, Delete, one-shot and auto-reload
 - 🔔 **FreeRTOS Task Notifications** — xTaskNotify, xTaskNotifyGive, ulTaskNotifyTake, xTaskNotifyWait, lightweight IPC
 - 🔧 **ESP-IDF System API** — esp_restart, chip info, heap size, reset reason, random, IDF version
+- 📻 **RadioLib** — SX1276/SX1278/SX1262 LoRa radio mock with TX/RX, frequency/SF/BW config, RSSI/SNR, test injection
+- 🎵 **MIDI** — Arduino MIDI Library mock with NoteOn/Off, CC, ProgramChange, PitchBend, callbacks, test injection
+- ⚖️ **NAU7802** — Adafruit NAU7802 24-bit ADC mock for load cells/scales, gain/rate/LDO config, calibration
+- 💾 **Wear Levelling** — ESP-IDF wear_levelling API mock with memory-backed flash, read/write/erase
 - ⚡ **Adafruit INA219** — High-side current/power sensor, calibration modes, power save
 - 📺 **LiquidCrystal I2C** — HD44780 character LCD via I2C, multi-row text, backlight, custom chars
 - 🎛️ **PCA9685** — 16-channel PWM servo driver, frequency control, microsecond positioning
