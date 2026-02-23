@@ -1,14 +1,13 @@
-// esp32emu test — SNTP time sync
 #include "esp_sntp.h"
 #include <cassert>
 #include <cstdio>
-#include <ctime>
 #include <cstring>
 
 int main() {
+    // Reset state
     esp32emu::sntp_state().reset();
 
-    // Not initialized yet
+    // Not initialized
     assert(!sntp_enabled());
     assert(sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET);
 
@@ -42,17 +41,22 @@ int main() {
     assert(sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET);
 
     // esp_sntp aliases
-    esp32emu::sntp_state().reset();
-    esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+    esp_sntp_setoperatingmode(SNTP_OPMODE_LISTENONLY);
     esp_sntp_setservername(0, "time.nist.gov");
+    assert(strcmp(sntp_getservername(0), "time.nist.gov") == 0);
     esp_sntp_init();
     assert(esp_sntp_enabled());
     assert(esp_sntp_get_sync_status() == SNTP_SYNC_STATUS_COMPLETED);
     esp_sntp_stop();
+    assert(!esp_sntp_enabled());
 
-    // Host time works
-    time_t now = time(nullptr);
-    assert(now > 1000000000);  // after ~2001
+    // Time offset helper
+    esp32emu_sntp_set_time_offset(3600);
+    assert(esp32emu::sntp_state().time_offset_sec == 3600);
+
+    // Out of bounds server index
+    sntp_setservername(5, "bad");
+    assert(strcmp(sntp_getservername(5), "") == 0);
 
     printf("test_sntp: all assertions passed\n");
     return 0;

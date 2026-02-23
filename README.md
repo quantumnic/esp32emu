@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-24-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-251-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-255-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -396,6 +396,7 @@ The emulator renders rich visual output directly in your terminal:
 | `DallasTemperature.h` | ✅ | DS18B20 temperature sensor mock |
 | `Adafruit_BME280.h` | ✅ | BME280 temp, humidity, pressure, altitude |
 | `AHTxx.h` | ✅ | AHT10/AHT20 temperature & humidity |
+| `Adafruit_AHTX0.h` | ✅ | Adafruit AHTX0 (AHT20) event-based API |
 | `Adafruit_PWMServoDriver.h` | ✅ | PCA9685 16-channel PWM servo driver |
 | `esp_vfs.h` | ✅ | Virtual File System registration mock |
 | `Update.h` | ✅ | Arduino OTA Update class with progress callbacks |
