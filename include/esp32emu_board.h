@@ -27,7 +27,8 @@ enum class BoardType {
     LILYGO_TDISPLAY_S3,
     QTPY_ESP32S2,
     THINGPLUS_ESP32S3,
-    MATRIXPORTAL_S3
+    MATRIXPORTAL_S3,
+    XIAO_ESP32C3
 };
 
 struct BoardConfig {
@@ -68,6 +69,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::QTPY_ESP32S2,     "QT Py ESP32-S2",  "ESP32-S2",    19, 4,  327680, 4194304,  240, true,  false, 39},
         {BoardType::THINGPLUS_ESP32S3,"Thing Plus ESP32-S3","ESP32-S3",  21, 6,  524288, 16777216, 240, true,  true,  13},
         {BoardType::MATRIXPORTAL_S3,  "MatrixPortal S3",   "ESP32-S3",  21, 6,  524288,  8388608, 240, true,  true,  13},
+        {BoardType::XIAO_ESP32C3,    "XIAO ESP32-C3",    "ESP32-C3",  11, 4,  409600,  4194304, 160, true,  false, 10},
     };
     return configs[static_cast<int>(t)];
 }
@@ -93,6 +95,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "qtpy" || name == "qtpy-s2" || name == "qtpy-esp32s2") return BoardType::QTPY_ESP32S2;
     if (name == "thingplus" || name == "thingplus-s3" || name == "sparkfun-thingplus") return BoardType::THINGPLUS_ESP32S3;
     if (name == "matrixportal" || name == "matrixportal-s3") return BoardType::MATRIXPORTAL_S3;
+    if (name == "xiao-c3" || name == "xiao-esp32c3") return BoardType::XIAO_ESP32C3;
     return BoardType::ESP32; // default
 }
 
@@ -161,6 +164,7 @@ public:
             case BoardType::ESP32_P4:     printESP32P4ASCII(); break;
             case BoardType::ESP32_C5:     printESP32C5ASCII(); break;
             case BoardType::XIAO_ESP32S3: printXIAOESP32S3ASCII(); break;
+            case BoardType::XIAO_ESP32C3: printXIAOESP32C3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -365,6 +369,21 @@ private:
     ║     └────────────────┘       ║
     ║  D0-D10 [■■■■■■■■■■■]       ║
     ║  A0-A8  [■■■■■■■■■]         ║
+    ║  USB-C [═══]  BOOT [●]      ║
+    ╚═══════════════════════════════╝
+)");
+    }
+
+    void printXIAOESP32C3ASCII() const {
+        fprintf(stderr, R"(
+    ╔═══════════════════════════════╗
+    ║     SEEED XIAO ESP32-C3      ║
+    ║     ┌────────────────┐       ║
+    ║     │  ◉  ESP32-C3   │       ║
+    ║     │   WiFi (RISC-V)│       ║
+    ║     └────────────────┘       ║
+    ║  D0-D10 [■■■■■■■■■■■]       ║
+    ║  A0-A3  [■■■■]              ║
     ║  USB-C [═══]  BOOT [●]      ║
     ╚═══════════════════════════════╝
 )");
