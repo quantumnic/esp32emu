@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-21-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-228-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-232-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -78,6 +78,11 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - ⏲️ **FreeRTOS Software Timers** — xTimerCreate, Start, Stop, Reset, ChangePeriod, Delete, one-shot and auto-reload
 - 🔔 **FreeRTOS Task Notifications** — xTaskNotify, xTaskNotifyGive, ulTaskNotifyTake, xTaskNotifyWait, lightweight IPC
 - 🔧 **ESP-IDF System API** — esp_restart, chip info, heap size, reset reason, random, IDF version
+- 🕐 **RTClib** — DS1307, DS3231, PCF8523 RTC mocks with DateTime, TimeSpan, NVRAM, temperature
+- 🔌 **ESP-IDF v5 I2C master** — i2c_new_master_bus, add_device, transmit/receive, probe, test helpers
+- 📊 **ESP-IDF v5 ADC calibration** — Line/curve fitting, raw-to-voltage conversion, multi-attenuation
+- 📐 **Adafruit ADS1X15** — Unified ADS1015/ADS1115 16-bit ADC, gain, differential, comparator
+- 🌡️ **MAX31855 thermocouple** — K-type thermocouple, internal temp, fault detection
 - 🌡️ **SHT4x sensor** — SHT40/SHT41/SHT45 temperature, humidity, precision modes, heater control
 - 🔥 **MAX31856 thermocouple** — Precision thermocouple amplifier, type B/E/J/K/N/R/S/T, cold junction, fault detection
 - ⏰ **Arduino time API** — configTime, getLocalTime, configTzTime for NTP clock applications
