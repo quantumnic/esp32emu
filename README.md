@@ -8,8 +8,8 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
-    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-23-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-246-orange.svg" alt="Examples"></a>
+    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-24-green.svg" alt="Boards"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-251-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📡 **WiFi simulation** — STA/AP mode, connection lifecycle, scan results
 - 🖥️ **Rich Terminal UI** — Colored output, pin visualization, ASCII board diagrams
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
-- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
+- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
 - 😴 **Deep sleep mock** — Test power management without exiting
@@ -78,6 +78,11 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - ⏲️ **FreeRTOS Software Timers** — xTimerCreate, Start, Stop, Reset, ChangePeriod, Delete, one-shot and auto-reload
 - 🔔 **FreeRTOS Task Notifications** — xTaskNotify, xTaskNotifyGive, ulTaskNotifyTake, xTaskNotifyWait, lightweight IPC
 - 🔧 **ESP-IDF System API** — esp_restart, chip info, heap size, reset reason, random, IDF version
+- 🧭 **BNO08x IMU** — 9-DOF sensor fusion, rotation vectors, accelerometer, gyroscope, step counter
+- 🌫️ **SEN5x air quality** — Sensirion SEN55 PM, VOC, NOx, temperature, humidity sensor
+- 🧭 **ICM-20948 IMU** — 9-axis accelerometer, gyroscope, magnetometer with configurable ranges
+- 🌬️ **SPS30 particles** — Sensirion particulate matter sensor, mass/number concentrations
+- 🌡️ **DPS310 barometer** — Infineon high-precision pressure, temperature, altitude sensor
 - 🏎️ **Adafruit Motor Shield V2** — DC motors (4x), stepper motors (2x), I2C PCA9685 PWM, speed/direction control
 - 💠 **Adafruit DotStar (APA102)** — LED strip mock with pixel buffer, HSV color, fill, brightness, HW SPI support
 - ☁️ **ThingSpeak** — IoT cloud client mock with field read/write, channel management, test value injection
@@ -263,6 +268,14 @@ make test
 | **ESP32-P4** | ESP32-P4 (RISC-V) | 55 | 12 | 768 KB | 16 MB | ✅ | ✅ BLE 5 |
 | **ESP32-C5** | ESP32-C5 (RISC-V) | 29 | 6 | 512 KB | 4 MB | ✅ WiFi 6 | ✅ BLE 5 |
 | **XIAO ESP32-S3** | ESP32-S3 | 11 | 9 | 512 KB | 8 MB | ✅ | ✅ BLE 5 |
+| **Feather ESP32-S3** | ESP32-S3 | 21 | 6 | 512 KB | 8 MB | ✅ | ✅ BLE 5 |
+| **M5Stack Core2** | ESP32-D0WDQ6 | 40 | 8 | 512 KB | 16 MB | ✅ | ✅ |
+| **LilyGO T-Display S3** | ESP32-S3 | 46 | 10 | 512 KB | 16 MB | ✅ | ✅ BLE 5 |
+| **QT Py ESP32-S2** | ESP32-S2 | 19 | 4 | 320 KB | 4 MB | ✅ | ❌ |
+| **Thing Plus ESP32-S3** | ESP32-S3 | 21 | 6 | 512 KB | 16 MB | ✅ | ✅ BLE 5 |
+| **MatrixPortal S3** | ESP32-S3 | 21 | 6 | 512 KB | 8 MB | ✅ | ✅ BLE 5 |
+| **XIAO ESP32-C3** | ESP32-C3 | 11 | 4 | 400 KB | 4 MB | ✅ | ❌ |
+| **Feather ESP32-S2** | ESP32-S2 | 21 | 6 | 320 KB | 4 MB | ✅ | ❌ |
 
 > ⚠️ **Arduino boards:** WiFi/Bluetooth calls print a warning and are ignored. Pin limits are enforced per board. `LED_BUILTIN = 13` (vs pin 2 on ESP32).
 
