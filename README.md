@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-21-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-232-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-236-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -78,6 +78,11 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - ⏲️ **FreeRTOS Software Timers** — xTimerCreate, Start, Stop, Reset, ChangePeriod, Delete, one-shot and auto-reload
 - 🔔 **FreeRTOS Task Notifications** — xTaskNotify, xTaskNotifyGive, ulTaskNotifyTake, xTaskNotifyWait, lightweight IPC
 - 🔧 **ESP-IDF System API** — esp_restart, chip info, heap size, reset reason, random, IDF version
+- ⚡ **Adafruit INA219** — High-side current/power sensor, calibration modes, power save
+- 📺 **LiquidCrystal I2C** — HD44780 character LCD via I2C, multi-row text, backlight, custom chars
+- 🎛️ **PCA9685** — 16-channel PWM servo driver, frequency control, microsecond positioning
+- 🌡️ **MS5611** — High-resolution barometric pressure sensor, altitude calculation, oversampling
+- 📡 **AsyncUDP** — Event-driven UDP with packet handler, broadcast, multicast, test injection
 - 🕐 **RTClib** — DS1307, DS3231, PCF8523 RTC mocks with DateTime, TimeSpan, NVRAM, temperature
 - 🔌 **ESP-IDF v5 I2C master** — i2c_new_master_bus, add_device, transmit/receive, probe, test helpers
 - 📊 **ESP-IDF v5 ADC calibration** — Line/curve fitting, raw-to-voltage conversion, multi-attenuation
