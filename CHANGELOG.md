@@ -2,6 +2,16 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.10.0] — 2026-02-23
+
+### Added
+- **Adafruit AS7341** 11-channel spectral color sensor mock — F1-F8 (415-680nm), Clear, NIR channels, gain/ATIME/ASTEP config, flicker detection, LED control, bulk read
+- **Adafruit PMSA003I** (PM25AQI) particulate matter sensor mock — PM1.0/PM2.5/PM10.0 standard & environmental, 6 particle size bins, I2C & UART init
+- **MCP9600** thermocouple EMF converter mock — hot/cold junction temps, delta, K/J/T/N/S/E/B/R types, 4 alert thresholds, filter coefficient, ADC resolution, device ID
+- **Olimex ESP32-PoE** board support — ESP32-D0WDQ6 with Ethernet (PoE), 40 GPIO, WiFi+BT, ASCII diagram
+- 3 new examples: `as7341_spectral`, `pmsa003i_airquality`, `mcp9600_thermocouple`
+- 253 tests, 258 examples, 25 boards
+
 ## [v1.9.0] — 2026-02-22
 
 ### Added
