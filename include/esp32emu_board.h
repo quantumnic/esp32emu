@@ -30,7 +30,8 @@ enum class BoardType {
     MATRIXPORTAL_S3,
     XIAO_ESP32C3,
     FEATHER_ESP32S2,
-    OLIMEX_ESP32_POE
+    OLIMEX_ESP32_POE,
+    WAVESHARE_ESP32S3_ZERO
 };
 
 struct BoardConfig {
@@ -74,6 +75,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::XIAO_ESP32C3,    "XIAO ESP32-C3",    "ESP32-C3",  11, 4,  409600,  4194304, 160, true,  false, 10},
         {BoardType::FEATHER_ESP32S2, "Feather ESP32-S2", "ESP32-S2",  21, 6,  327680,  4194304, 240, true,  false, 13},
         {BoardType::OLIMEX_ESP32_POE,"Olimex ESP32-PoE","ESP32-D0WDQ6",40, 8, 524288, 4194304, 240, true,  true,  -1},
+        {BoardType::WAVESHARE_ESP32S3_ZERO,"Waveshare ESP32-S3-Zero","ESP32-S3",18, 7, 524288, 16777216,240,true, true,  -1},
     };
     return configs[static_cast<int>(t)];
 }
@@ -102,6 +104,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "xiao-c3" || name == "xiao-esp32c3") return BoardType::XIAO_ESP32C3;
     if (name == "feather-s2" || name == "feather-esp32s2") return BoardType::FEATHER_ESP32S2;
     if (name == "olimex-poe" || name == "esp32-poe" || name == "olimex-esp32-poe") return BoardType::OLIMEX_ESP32_POE;
+    if (name == "waveshare-s3-zero" || name == "esp32-s3-zero" || name == "waveshare-esp32-s3-zero") return BoardType::WAVESHARE_ESP32S3_ZERO;
     return BoardType::ESP32; // default
 }
 
@@ -172,6 +175,7 @@ public:
             case BoardType::XIAO_ESP32S3: printXIAOESP32S3ASCII(); break;
             case BoardType::XIAO_ESP32C3: printXIAOESP32C3ASCII(); break;
             case BoardType::OLIMEX_ESP32_POE: printOlimexESP32PoEASCII(); break;
+            case BoardType::WAVESHARE_ESP32S3_ZERO: printWaveshareESP32S3ZeroASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -419,6 +423,18 @@ private:
     ║  ETH [RJ45]  PoE [⚡]  USB [═══]    ║
     ║  RESET [●]  BOOT [●]  SD [▪▪]      ║
     ╚══════════════════════════════════════╝
+)");
+    }
+    void printWaveshareESP32S3ZeroASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║     Waveshare ESP32-S3-Zero      ║
+    ║     ESP32-S3 @240MHz (16MB)      ║
+    ║                                  ║
+    ║  GPIO0-GPIO18 [■■■■■■■■■■■■■]  ║
+    ║  USB-C [═══]  BOOT [●]  RST [●] ║
+    ║  RGB LED [★]  Stamp form factor  ║
+    ╚══════════════════════════════════╝
 )");
     }
 };
