@@ -31,7 +31,8 @@ enum class BoardType {
     XIAO_ESP32C3,
     FEATHER_ESP32S2,
     OLIMEX_ESP32_POE,
-    WAVESHARE_ESP32S3_ZERO
+    WAVESHARE_ESP32S3_ZERO,
+    FEATHER_ESP32C6
 };
 
 struct BoardConfig {
@@ -76,6 +77,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::FEATHER_ESP32S2, "Feather ESP32-S2", "ESP32-S2",  21, 6,  327680,  4194304, 240, true,  false, 13},
         {BoardType::OLIMEX_ESP32_POE,"Olimex ESP32-PoE","ESP32-D0WDQ6",40, 8, 524288, 4194304, 240, true,  true,  -1},
         {BoardType::WAVESHARE_ESP32S3_ZERO,"Waveshare ESP32-S3-Zero","ESP32-S3",18, 7, 524288, 16777216,240,true, true,  -1},
+        {BoardType::FEATHER_ESP32C6,"Feather ESP32-C6","ESP32-C6",  22, 6,  524288,  8388608, 160, true,  true,  13},
     };
     return configs[static_cast<int>(t)];
 }
@@ -105,6 +107,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "feather-s2" || name == "feather-esp32s2") return BoardType::FEATHER_ESP32S2;
     if (name == "olimex-poe" || name == "esp32-poe" || name == "olimex-esp32-poe") return BoardType::OLIMEX_ESP32_POE;
     if (name == "waveshare-s3-zero" || name == "esp32-s3-zero" || name == "waveshare-esp32-s3-zero") return BoardType::WAVESHARE_ESP32S3_ZERO;
+    if (name == "feather-c6" || name == "feather-esp32c6" || name == "feather-esp32-c6") return BoardType::FEATHER_ESP32C6;
     return BoardType::ESP32; // default
 }
 
@@ -176,6 +179,7 @@ public:
             case BoardType::XIAO_ESP32C3: printXIAOESP32C3ASCII(); break;
             case BoardType::OLIMEX_ESP32_POE: printOlimexESP32PoEASCII(); break;
             case BoardType::WAVESHARE_ESP32S3_ZERO: printWaveshareESP32S3ZeroASCII(); break;
+            case BoardType::FEATHER_ESP32C6: printFeatherESP32C6ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -435,6 +439,23 @@ private:
     ║  USB-C [═══]  BOOT [●]  RST [●] ║
     ║  RGB LED [★]  Stamp form factor  ║
     ╚══════════════════════════════════╝
+)");
+    }
+
+    void printFeatherESP32C6ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║     Adafruit Feather ESP32-C6        ║
+    ║     ESP32-C6 @160MHz (RISC-V)        ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-C6      │  WiFi6/BT5   ║
+    ║  │     Zigbee/Thread  │  8MB Flash   ║
+    ║  └────────────────────┘              ║
+    ║  GPIO0-GPIO22 [■■■■■■■■■■■■■■■■]   ║
+    ║  LiPo [🔋]  STEMMA QT [■■]         ║
+    ║  USB-C [═══]  BOOT [●]  RST [●]    ║
+    ╚══════════════════════════════════════╝
 )");
     }
 };

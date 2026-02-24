@@ -2,6 +2,17 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.12.0] — 2026-02-24
+
+### Added
+- **Adafruit DRV2605** haptic motor driver mock — waveform slots, ERM/LRA modes, internal trigger, realtime playback, library selection, play/stop
+- **Adafruit LPS22** barometric pressure sensor mock — I2C/SPI init, pressure/temperature reading, data rate config, data-ready flags, reset
+- **Adafruit MPRLS** ported pressure sensor mock — pressure reading (hPa), status byte, configurable reset/EOC pins, PSI range
+- **Adafruit HTU31D** temperature & humidity sensor mock — temp/humidity reading, heater control, reset, serial number, diagnostic status
+- **Adafruit Feather ESP32-C6** board support — ESP32-C6 RISC-V with WiFi 6, BT5, Zigbee/Thread, LiPo, STEMMA QT, ASCII diagram
+- 4 new examples: `drv2605_haptic`, `lps22_barometer`, `mprls_pressure`, `htu31d_climate`
+- 265 tests, 271 examples, 27 boards
+
 ## [v1.11.0] — 2026-02-24
 
 ### Added
