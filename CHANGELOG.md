@@ -2,6 +2,18 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.18.0] — 2026-02-24
+
+### Added
+- **PCF8575** 16-bit I2C I/O Expander mock (write16/read16, pin toggle, polarity)
+- **Adafruit_CAP1188** 8-channel capacitive touch sensor mock (touch bitmask, delta, sensitivity, multi-touch)
+- **Adafruit_ENS160** digital multi-gas air quality sensor mock (AQI, TVOC, eCO2, temperature/humidity compensation)
+- **Adafruit_VEML6070** UV light sensor mock (raw UV, integration time, sleep/wake)
+- **SparkFun Thing Plus C** board support (ESP32-WROOM-32E, Qwiic, USB-C, µSD, LiPo)
+- 4 new tests: `test_pcf8575`, `test_adafruit_cap1188`, `test_adafruit_ens160`, `test_adafruit_veml6070`
+- 4 new examples: `pcf8575_io_expander`, `cap1188_touch_pads`, `ens160_air_quality`, `veml6070_uv_sensor`
+- **287 tests, 294 examples** total
+
 ## [v1.17.0] — 2026-02-24
 
 ### Added

@@ -42,7 +42,8 @@ enum class BoardType {
     QTPY_ESP32C3,
     TINYPICO,
     ESP32_DEVKIT_V1,
-    UM_TINYS3
+    UM_TINYS3,
+    SPARKFUN_THINGPLUS_C
 };
 
 struct BoardConfig {
@@ -98,6 +99,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::TINYPICO,          "TinyPICO",      "ESP32-PICO-D4",22, 8, 524288, 4194304, 240, true,  true,  18},
         {BoardType::ESP32_DEVKIT_V1,   "ESP32 DevKit V1","ESP32-WROOM-32",38, 8, 327680, 4194304, 240, true, true,  2},
         {BoardType::UM_TINYS3,         "TinyS3",        "ESP32-S3",       22, 8, 524288, 8388608, 240, true,  true,  18},
+        {BoardType::SPARKFUN_THINGPLUS_C,"SparkFun Thing Plus C","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 13},
     };
     return configs[static_cast<int>(t)];
 }
@@ -138,6 +140,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "tinypico" || name == "tiny-pico") return BoardType::TINYPICO;
     if (name == "devkit" || name == "devkit-v1" || name == "esp32-devkit" || name == "esp32-devkit-v1") return BoardType::ESP32_DEVKIT_V1;
     if (name == "tinys3" || name == "um-tinys3" || name == "tiny-s3") return BoardType::UM_TINYS3;
+    if (name == "thingplus-c" || name == "sparkfun-thingplus-c" || name == "thing-plus-c") return BoardType::SPARKFUN_THINGPLUS_C;
     return BoardType::ESP32; // default
 }
 
@@ -217,6 +220,7 @@ public:
             case BoardType::TINYPICO: printTinyPICOASCII(); break;
             case BoardType::ESP32_DEVKIT_V1: printESP32DevKitV1ASCII(); break;
             case BoardType::UM_TINYS3: printTinyS3ASCII(); break;
+            case BoardType::SPARKFUN_THINGPLUS_C: printSparkFunThingPlusCASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -586,6 +590,23 @@ private:
     ║  5V [●]  3V3 [●]  RGB [🌈]     ║
     ║  USB-C [═══]  BOOT [●]          ║
     ╚══════════════════════════════════╝
+)");
+    }
+
+    void printSparkFunThingPlusCASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║    SparkFun Thing Plus C             ║
+    ║    ESP32-WROOM-32E @ 240MHz          ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-WROOM   │  WiFi/BT     ║
+    ║  │     16MB Flash     │  520KB SRAM  ║
+    ║  └────────────────────┘              ║
+    ║  GPIO0-GPIO27 [■■■■■■■■■■■■■■■■]   ║
+    ║  Qwiic [■■]  LiPo [🔋]  µSD [▪▪]  ║
+    ║  USB-C [═══]  BOOT [●]  RST [●]    ║
+    ╚══════════════════════════════════════╝
 )");
     }
 
