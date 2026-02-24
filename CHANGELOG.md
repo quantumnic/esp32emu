@@ -2,6 +2,16 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.13.0] — 2026-02-24
+
+### Added
+- **ACS712** Hall-effect current sensor mock — 5A/20A/30A variants, DC/AC current reading, calibration, midpoint, voltage, sensitivity config
+- **HDC1080** temperature & humidity sensor mock — 14/11/8-bit resolution, heater control, manufacturer/device IDs, battery status
+- **INA3221** triple-channel power monitor mock — per-channel bus voltage/current/power, shunt resistance, enable/disable channels, averaging mode, critical/warning alerts
+- **M5Atom Lite** board support — ESP32-PICO-D4 with WiFi, BT, SK6812 LED, 26 GPIO, ASCII diagram
+- 4 new examples: `acs712_current_meter`, `hdc1080_climate`, `ina3221_power_monitor`, `m5atom_lite_blink`
+- 268 tests, 275 examples, 28 boards
+
 ## [v1.12.0] — 2026-02-24
 
 ### Added

@@ -32,7 +32,8 @@ enum class BoardType {
     FEATHER_ESP32S2,
     OLIMEX_ESP32_POE,
     WAVESHARE_ESP32S3_ZERO,
-    FEATHER_ESP32C6
+    FEATHER_ESP32C6,
+    M5ATOM_LITE
 };
 
 struct BoardConfig {
@@ -78,6 +79,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::OLIMEX_ESP32_POE,"Olimex ESP32-PoE","ESP32-D0WDQ6",40, 8, 524288, 4194304, 240, true,  true,  -1},
         {BoardType::WAVESHARE_ESP32S3_ZERO,"Waveshare ESP32-S3-Zero","ESP32-S3",18, 7, 524288, 16777216,240,true, true,  -1},
         {BoardType::FEATHER_ESP32C6,"Feather ESP32-C6","ESP32-C6",  22, 6,  524288,  8388608, 160, true,  true,  13},
+        {BoardType::M5ATOM_LITE,    "M5Atom Lite",    "ESP32-PICO-D4",26, 8, 524288, 4194304, 240, true,  true,  -1},
     };
     return configs[static_cast<int>(t)];
 }
@@ -108,6 +110,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "olimex-poe" || name == "esp32-poe" || name == "olimex-esp32-poe") return BoardType::OLIMEX_ESP32_POE;
     if (name == "waveshare-s3-zero" || name == "esp32-s3-zero" || name == "waveshare-esp32-s3-zero") return BoardType::WAVESHARE_ESP32S3_ZERO;
     if (name == "feather-c6" || name == "feather-esp32c6" || name == "feather-esp32-c6") return BoardType::FEATHER_ESP32C6;
+        if (name == "m5atom" || name == "m5atom-lite" || name == "m5atomlite") return BoardType::M5ATOM_LITE;
     return BoardType::ESP32; // default
 }
 

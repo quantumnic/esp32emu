@@ -8,8 +8,8 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
-    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-27-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-271-orange.svg" alt="Examples"></a>
+    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-28-green.svg" alt="Boards"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-275-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📡 **WiFi simulation** — STA/AP mode, connection lifecycle, scan results
 - 🖥️ **Rich Terminal UI** — Colored output, pin visualization, ASCII board diagrams
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
-- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
+- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, M5Atom Lite, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
 - 😴 **Deep sleep mock** — Test power management without exiting
@@ -102,6 +102,13 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 🧭 **LIS3MDL magnetometer** — 3-axis magnetometer, configurable range/data rate, interrupt, compass heading
 - 📐 **ADXL345 accelerometer** — 3-axis accelerometer, tap/free-fall/activity detection, pitch/roll calculation
 - 🎵 **DFPlayer Mini** — MP3 player module, play/pause/stop, volume, EQ, folders, loop, DAC, sleep/wake
+- 🫨 **DRV2605 Haptic** — Haptic motor driver, waveform slots, ERM/LRA modes, internal trigger, library selection
+- 🌡️ **LPS22 Barometer** — Barometric pressure/temperature, data rate config, data-ready flags, reset
+- 🔴 **MPRLS Pressure** — Ported pressure sensor, hPa reading, configurable reset/EOC pins, PSI range
+- 🌡️ **HTU31D Climate** — Temperature/humidity, heater control, reset, serial number, diagnostic status
+- ⚡ **ACS712 Current Sensor** — Hall-effect current sensor, 5A/20A/30A variants, DC/AC, calibration
+- 🌡️ **HDC1080 Climate** — Low-power temp/humidity, 14/11/8-bit resolution, heater, manufacturer/device IDs
+- ⚡ **INA3221 Power Monitor** — Triple-channel high-side current/voltage/power, alerts, averaging, channel enable
 - 📡 **AsyncUDP** — Event-driven UDP with packet handler, broadcast, multicast, test injection
 - 🕐 **RTClib** — DS1307, DS3231, PCF8523 RTC mocks with DateTime, TimeSpan, NVRAM, temperature
 - 🔌 **ESP-IDF v5 I2C master** — i2c_new_master_bus, add_device, transmit/receive, probe, test helpers
@@ -290,6 +297,7 @@ make test
 | **Olimex ESP32-PoE** | ESP32-D0WDQ6 | 40 | 8 | 512 KB | 4 MB | ✅ | ✅ |
 | **Waveshare ESP32-S3-Zero** | ESP32-S3 | 18 | 7 | 512 KB | 16 MB | ✅ | ✅ |
 | **Feather ESP32-C6** | ESP32-C6 | 22 | 6 | 512 KB | 8 MB | ✅ | ✅ |
+| **M5Atom Lite** | ESP32-PICO-D4 | 26 | 8 | 512 KB | 4 MB | ✅ | ✅ |
 
 > ⚠️ **Arduino boards:** WiFi/Bluetooth calls print a warning and are ignored. Pin limits are enforced per board. `LED_BUILTIN = 13` (vs pin 2 on ESP32).
 
