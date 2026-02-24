@@ -2,6 +2,22 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.17.0] — 2026-02-24
+
+### Added
+- **Adafruit MPL3115A2 mock** — Altimeter/barometer/temperature sensor, oversample control, mode switching, sea-level pressure config, test helpers
+- **Si5351 clock generator mock** — Triple-output programmable clock (8kHz–160MHz), PLL config, drive strength (2–8mA), frequency correction, output enable
+- **ADS1220 24-bit ADC mock** — 4-channel MUX, gain 1–128x, data rate config, continuous/single-shot mode, internal temperature sensor, power management
+- **UM TinyS3 board** — Unexpected Maker TinyS3 with ESP32-S3, 8MB Flash, 8MB PSRAM, USB-C, ASCII art
+- **mpl3115a2_weather example** — Weather station with pressure, altitude, temperature display
+- **si5351_vfo example** — Variable Frequency Oscillator for ham radio bands
+- **ads1220_loadcell example** — Precision load cell / scale reading with 128x gain
+
+### Stats
+- **283 tests**, **290 examples**, **37 boards**
+
+---
+
 ## [v1.16.0] — 2026-02-24
 
 ### Added

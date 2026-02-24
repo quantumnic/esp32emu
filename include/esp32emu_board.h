@@ -41,7 +41,8 @@ enum class BoardType {
     SEEED_XIAO_ESP32C6,
     QTPY_ESP32C3,
     TINYPICO,
-    ESP32_DEVKIT_V1
+    ESP32_DEVKIT_V1,
+    UM_TINYS3
 };
 
 struct BoardConfig {
@@ -96,6 +97,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::QTPY_ESP32C3,      "QT Py ESP32-C3","ESP32-C3",   11, 4, 409600,  4194304, 160, true,  false, -1},
         {BoardType::TINYPICO,          "TinyPICO",      "ESP32-PICO-D4",22, 8, 524288, 4194304, 240, true,  true,  18},
         {BoardType::ESP32_DEVKIT_V1,   "ESP32 DevKit V1","ESP32-WROOM-32",38, 8, 327680, 4194304, 240, true, true,  2},
+        {BoardType::UM_TINYS3,         "TinyS3",        "ESP32-S3",       22, 8, 524288, 8388608, 240, true,  true,  18},
     };
     return configs[static_cast<int>(t)];
 }
@@ -135,6 +137,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "qtpy-c3" || name == "qtpy-esp32c3" || name == "qtpy-esp32-c3") return BoardType::QTPY_ESP32C3;
     if (name == "tinypico" || name == "tiny-pico") return BoardType::TINYPICO;
     if (name == "devkit" || name == "devkit-v1" || name == "esp32-devkit" || name == "esp32-devkit-v1") return BoardType::ESP32_DEVKIT_V1;
+    if (name == "tinys3" || name == "um-tinys3" || name == "tiny-s3") return BoardType::UM_TINYS3;
     return BoardType::ESP32; // default
 }
 
@@ -213,6 +216,7 @@ public:
             case BoardType::QTPY_ESP32C3: printQTPYESP32C3ASCII(); break;
             case BoardType::TINYPICO: printTinyPICOASCII(); break;
             case BoardType::ESP32_DEVKIT_V1: printESP32DevKitV1ASCII(); break;
+            case BoardType::UM_TINYS3: printTinyS3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -565,6 +569,22 @@ private:
     ║  GPIO 0-39  [■■■■■■■■■■■■]     ║
     ║  EN [●]  BOOT [●]  LED [💡]    ║
     ║  Micro-USB [═══]                ║
+    ╚══════════════════════════════════╝
+)");
+    }
+
+    void printTinyS3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║         TinyS3                   ║
+    ║         ESP32-S3 @ 240MHz        ║
+    ║      ┌──────────────┐            ║
+    ║      │  ◉ ESP32-S3  │ WiFi/BT5   ║
+    ║      │   8MB Flash  │ 8MB PSRAM   ║
+    ║      └──────────────┘            ║
+    ║  GPIO 0-21  [■■■■■■■■■■]       ║
+    ║  5V [●]  3V3 [●]  RGB [🌈]     ║
+    ║  USB-C [═══]  BOOT [●]          ║
     ╚══════════════════════════════════╝
 )");
     }
