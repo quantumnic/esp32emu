@@ -2,6 +2,16 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.19.0] — 2026-02-24
+
+### Added
+- **Ethernet library mock** — `EthernetClass`, `EthernetClient`, `EthernetServer` with DHCP/static IP, MAC readback, link status, RX injection, TX inspection
+- **Adafruit TCS34725 color sensor mock** — RGBC raw data, RGB normalization, color temperature (McCamy's formula), lux calculation, interrupt limits, enable/disable
+- **ESP32-S3-DevKitC-1 board** — Official Espressif dev board with 48 GPIO, 8MB PSRAM, USB-OTG, ASCII art
+- 3 new examples: `ethernet_webserver`, `ethernet_client`, `color_sensor`
+- 2 new test files: `test_ethernet` (10 tests), `test_tcs34725` (10 tests)
+- **289 tests, 297 examples, 39 boards**
+
 ## [v1.18.0] — 2026-02-24
 
 ### Added

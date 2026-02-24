@@ -43,7 +43,8 @@ enum class BoardType {
     TINYPICO,
     ESP32_DEVKIT_V1,
     UM_TINYS3,
-    SPARKFUN_THINGPLUS_C
+    SPARKFUN_THINGPLUS_C,
+    ESP32S3_DEVKITC_1
 };
 
 struct BoardConfig {
@@ -100,6 +101,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::ESP32_DEVKIT_V1,   "ESP32 DevKit V1","ESP32-WROOM-32",38, 8, 327680, 4194304, 240, true, true,  2},
         {BoardType::UM_TINYS3,         "TinyS3",        "ESP32-S3",       22, 8, 524288, 8388608, 240, true,  true,  18},
         {BoardType::SPARKFUN_THINGPLUS_C,"SparkFun Thing Plus C","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 13},
+        {BoardType::ESP32S3_DEVKITC_1,  "ESP32-S3-DevKitC-1","ESP32-S3-WROOM-1",48,10, 524288, 16777216, 240, true, true, 48},
     };
     return configs[static_cast<int>(t)];
 }
@@ -141,6 +143,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "devkit" || name == "devkit-v1" || name == "esp32-devkit" || name == "esp32-devkit-v1") return BoardType::ESP32_DEVKIT_V1;
     if (name == "tinys3" || name == "um-tinys3" || name == "tiny-s3") return BoardType::UM_TINYS3;
     if (name == "thingplus-c" || name == "sparkfun-thingplus-c" || name == "thing-plus-c") return BoardType::SPARKFUN_THINGPLUS_C;
+    if (name == "devkitc-1" || name == "esp32s3-devkitc-1" || name == "esp32-s3-devkitc" || name == "devkitc1") return BoardType::ESP32S3_DEVKITC_1;
     return BoardType::ESP32; // default
 }
 
@@ -221,6 +224,7 @@ public:
             case BoardType::ESP32_DEVKIT_V1: printESP32DevKitV1ASCII(); break;
             case BoardType::UM_TINYS3: printTinyS3ASCII(); break;
             case BoardType::SPARKFUN_THINGPLUS_C: printSparkFunThingPlusCASCII(); break;
+            case BoardType::ESP32S3_DEVKITC_1: printESP32S3DevKitC1ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -623,6 +627,23 @@ private:
     ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
     ║  USB-C [═══]  LiPo [🔋]            ║
     ║  BOOT [●]  RST [●]  LED [💡]       ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printESP32S3DevKitC1ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║    ESP32-S3-DevKitC-1                ║
+    ║    ESP32-S3-WROOM-1 @ 240MHz         ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-S3      │  WiFi/BT5    ║
+    ║  │     16MB Flash     │  512KB SRAM  ║
+    ║  │     8MB PSRAM      │  USB-OTG     ║
+    ║  └────────────────────┘              ║
+    ║  GPIO0-GPIO48 [■■■■■■■■■■■■■■■■■]  ║
+    ║  USB [═══]  UART [═══]              ║
+    ║  BOOT [●]  RST [●]  RGB [🌈]       ║
     ╚══════════════════════════════════════╝
 )");
     }
