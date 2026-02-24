@@ -33,7 +33,8 @@ enum class BoardType {
     OLIMEX_ESP32_POE,
     WAVESHARE_ESP32S3_ZERO,
     FEATHER_ESP32C6,
-    M5ATOM_LITE
+    M5ATOM_LITE,
+    FIREBEETLE_ESP32
 };
 
 struct BoardConfig {
@@ -80,6 +81,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::WAVESHARE_ESP32S3_ZERO,"Waveshare ESP32-S3-Zero","ESP32-S3",18, 7, 524288, 16777216,240,true, true,  -1},
         {BoardType::FEATHER_ESP32C6,"Feather ESP32-C6","ESP32-C6",  22, 6,  524288,  8388608, 160, true,  true,  13},
         {BoardType::M5ATOM_LITE,    "M5Atom Lite",    "ESP32-PICO-D4",26, 8, 524288, 4194304, 240, true,  true,  -1},
+        {BoardType::FIREBEETLE_ESP32,"FireBeetle ESP32","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 2},
     };
     return configs[static_cast<int>(t)];
 }
@@ -111,6 +113,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "waveshare-s3-zero" || name == "esp32-s3-zero" || name == "waveshare-esp32-s3-zero") return BoardType::WAVESHARE_ESP32S3_ZERO;
     if (name == "feather-c6" || name == "feather-esp32c6" || name == "feather-esp32-c6") return BoardType::FEATHER_ESP32C6;
         if (name == "m5atom" || name == "m5atom-lite" || name == "m5atomlite") return BoardType::M5ATOM_LITE;
+    if (name == "firebeetle" || name == "firebeetle-esp32" || name == "dfrobot-firebeetle") return BoardType::FIREBEETLE_ESP32;
     return BoardType::ESP32; // default
 }
 
@@ -183,6 +186,7 @@ public:
             case BoardType::OLIMEX_ESP32_POE: printOlimexESP32PoEASCII(); break;
             case BoardType::WAVESHARE_ESP32S3_ZERO: printWaveshareESP32S3ZeroASCII(); break;
             case BoardType::FEATHER_ESP32C6: printFeatherESP32C6ASCII(); break;
+            case BoardType::FIREBEETLE_ESP32: printFireBeetleESP32ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -457,6 +461,22 @@ private:
     ║  └────────────────────┘              ║
     ║  GPIO0-GPIO22 [■■■■■■■■■■■■■■■■]   ║
     ║  LiPo [🔋]  STEMMA QT [■■]         ║
+    ║  USB-C [═══]  BOOT [●]  RST [●]    ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printFireBeetleESP32ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║      DFRobot FireBeetle ESP32        ║
+    ║      ESP32-WROOM-32E @ 240MHz        ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-WROOM   │  WiFi/BT     ║
+    ║  │     16MB Flash     │  520KB SRAM  ║
+    ║  └────────────────────┘              ║
+    ║  GPIO0-GPIO27 [■■■■■■■■■■■■■■■■]   ║
+    ║  GDI [══]  LiPo [🔋]  LED [💡]     ║
     ║  USB-C [═══]  BOOT [●]  RST [●]    ║
     ╚══════════════════════════════════════╝
 )");
