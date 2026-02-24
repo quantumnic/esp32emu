@@ -35,7 +35,10 @@ enum class BoardType {
     FEATHER_ESP32C6,
     M5ATOM_LITE,
     FIREBEETLE_ESP32,
-    LOLIN_S3
+    LOLIN_S3,
+    M5STICKC_PLUS,
+    TTGO_TDISPLAY,
+    SEEED_XIAO_ESP32C6
 };
 
 struct BoardConfig {
@@ -84,6 +87,9 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::M5ATOM_LITE,    "M5Atom Lite",    "ESP32-PICO-D4",26, 8, 524288, 4194304, 240, true,  true,  -1},
         {BoardType::FIREBEETLE_ESP32,"FireBeetle ESP32","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 2},
         {BoardType::LOLIN_S3,       "LOLIN S3",       "ESP32-S3",       46,10, 524288, 16777216, 240, true,  true,  -1},
+        {BoardType::M5STICKC_PLUS, "M5StickC Plus", "ESP32-PICO-D4",  26, 8, 524288,  4194304, 240, true,  true,  10},
+        {BoardType::TTGO_TDISPLAY, "TTGO T-Display","ESP32-D0WDQ6",   40, 8, 524288,  4194304, 240, true,  true,  -1},
+        {BoardType::SEEED_XIAO_ESP32C6,"XIAO ESP32-C6","ESP32-C6",    22, 6, 524288,  4194304, 160, true,  true,  15},
     };
     return configs[static_cast<int>(t)];
 }
@@ -117,6 +123,9 @@ inline BoardType parseBoardName(const std::string& name) {
         if (name == "m5atom" || name == "m5atom-lite" || name == "m5atomlite") return BoardType::M5ATOM_LITE;
     if (name == "firebeetle" || name == "firebeetle-esp32" || name == "dfrobot-firebeetle") return BoardType::FIREBEETLE_ESP32;
     if (name == "lolin-s3" || name == "wemos-s3" || name == "lolin-s3-esp32") return BoardType::LOLIN_S3;
+    if (name == "m5stickc-plus" || name == "m5stickc" || name == "m5stick") return BoardType::M5STICKC_PLUS;
+    if (name == "ttgo-tdisplay" || name == "t-display" || name == "tdisplay") return BoardType::TTGO_TDISPLAY;
+    if (name == "xiao-c6" || name == "xiao-esp32c6" || name == "xiao-esp32-c6") return BoardType::SEEED_XIAO_ESP32C6;
     return BoardType::ESP32; // default
 }
 

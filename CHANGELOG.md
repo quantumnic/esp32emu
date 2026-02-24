@@ -2,6 +2,17 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.15.0] — 2026-02-24
+
+### Added
+- **Adafruit_ST7735** — ST7735 TFT display mock with initR/initB, tab types (green/red/black/mini), rotation, sleep, invert, pixel/rect drawing, color565, framebuffer access
+- **Adafruit_BME68x** — BME68x (BSEC2-compatible) sensor mock with temperature/pressure/humidity/gas resistance, oversampling config, IIR filter, gas heater, altitude calculation, async reading flow
+- **M5StickC Plus** board — ESP32-PICO-D4 with WiFi + BT, LED pin 10
+- **TTGO T-Display** board — ESP32-D0WDQ6 with WiFi + BT, 240MHz
+- **XIAO ESP32-C6** board (Seeed Studio) — ESP32-C6, WiFi + BT, 160MHz, LED pin 15
+- 3 new tests (`test_st7735`, `test_bme68x`, `test_boards_new`) — **277 tests total**
+- 3 new examples (`st7735_graphics`, `bme68x_air_quality`, `m5stickc_plus_demo`) — **284 examples total**
+
 ## [v1.14.0] — 2026-02-24
 
 ### Added
