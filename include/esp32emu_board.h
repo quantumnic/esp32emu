@@ -38,7 +38,10 @@ enum class BoardType {
     LOLIN_S3,
     M5STICKC_PLUS,
     TTGO_TDISPLAY,
-    SEEED_XIAO_ESP32C6
+    SEEED_XIAO_ESP32C6,
+    QTPY_ESP32C3,
+    TINYPICO,
+    ESP32_DEVKIT_V1
 };
 
 struct BoardConfig {
@@ -90,6 +93,9 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::M5STICKC_PLUS, "M5StickC Plus", "ESP32-PICO-D4",  26, 8, 524288,  4194304, 240, true,  true,  10},
         {BoardType::TTGO_TDISPLAY, "TTGO T-Display","ESP32-D0WDQ6",   40, 8, 524288,  4194304, 240, true,  true,  -1},
         {BoardType::SEEED_XIAO_ESP32C6,"XIAO ESP32-C6","ESP32-C6",    22, 6, 524288,  4194304, 160, true,  true,  15},
+        {BoardType::QTPY_ESP32C3,      "QT Py ESP32-C3","ESP32-C3",   11, 4, 409600,  4194304, 160, true,  false, -1},
+        {BoardType::TINYPICO,          "TinyPICO",      "ESP32-PICO-D4",22, 8, 524288, 4194304, 240, true,  true,  18},
+        {BoardType::ESP32_DEVKIT_V1,   "ESP32 DevKit V1","ESP32-WROOM-32",38, 8, 327680, 4194304, 240, true, true,  2},
     };
     return configs[static_cast<int>(t)];
 }
@@ -126,6 +132,9 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "m5stickc-plus" || name == "m5stickc" || name == "m5stick") return BoardType::M5STICKC_PLUS;
     if (name == "ttgo-tdisplay" || name == "t-display" || name == "tdisplay") return BoardType::TTGO_TDISPLAY;
     if (name == "xiao-c6" || name == "xiao-esp32c6" || name == "xiao-esp32-c6") return BoardType::SEEED_XIAO_ESP32C6;
+    if (name == "qtpy-c3" || name == "qtpy-esp32c3" || name == "qtpy-esp32-c3") return BoardType::QTPY_ESP32C3;
+    if (name == "tinypico" || name == "tiny-pico") return BoardType::TINYPICO;
+    if (name == "devkit" || name == "devkit-v1" || name == "esp32-devkit" || name == "esp32-devkit-v1") return BoardType::ESP32_DEVKIT_V1;
     return BoardType::ESP32; // default
 }
 
@@ -201,6 +210,9 @@ public:
             case BoardType::FIREBEETLE_ESP32: printFireBeetleESP32ASCII(); break;
             case BoardType::M5ATOM_LITE: printM5AtomLiteASCII(); break;
             case BoardType::LOLIN_S3: printLolinS3ASCII(); break;
+            case BoardType::QTPY_ESP32C3: printQTPYESP32C3ASCII(); break;
+            case BoardType::TINYPICO: printTinyPICOASCII(); break;
+            case BoardType::ESP32_DEVKIT_V1: printESP32DevKitV1ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -511,6 +523,52 @@ private:
     ╚══════════════════════════════════════╝
 )");
     }
+    void printQTPYESP32C3ASCII() const {
+        fprintf(stderr, R"(
+    ╔═══════════════════════════════╗
+    ║    Adafruit QT Py ESP32-C3   ║
+    ║     ┌────────────────┐       ║
+    ║     │  ◉  ESP32-C3   │       ║
+    ║     │  WiFi (RISC-V) │       ║
+    ║     └────────────────┘       ║
+    ║  D0-D10 [■■■■■■■■■■■]       ║
+    ║  STEMMA QT [■■]  NeoPixel   ║
+    ║  USB-C [═══]  BOOT [●]      ║
+    ╚═══════════════════════════════╝
+)");
+    }
+
+    void printTinyPICOASCII() const {
+        fprintf(stderr, R"(
+    ╔═══════════════════════════════╗
+    ║        TinyPICO               ║
+    ║     ┌────────────────┐       ║
+    ║     │  ESP32-PICO-D4 │       ║
+    ║     │  WiFi/BT  4MB  │       ║
+    ║     └────────────────┘       ║
+    ║  14 GPIO [■■■■■■■■■■■■■■]   ║
+    ║  APA102 LED [★]  LiPo [🔋]  ║
+    ║  USB-C [═══]  BOOT [●]      ║
+    ╚═══════════════════════════════╝
+)");
+    }
+
+    void printESP32DevKitV1ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════╗
+    ║       ESP32 DevKit V1            ║
+    ║       ESP32-WROOM-32             ║
+    ║      ┌──────────────┐            ║
+    ║      │  ████████    │ WiFi/BT    ║
+    ║      │  ESP-WROOM   │ 4MB Flash  ║
+    ║      └──────────────┘            ║
+    ║  GPIO 0-39  [■■■■■■■■■■■■]     ║
+    ║  EN [●]  BOOT [●]  LED [💡]    ║
+    ║  Micro-USB [═══]                ║
+    ╚══════════════════════════════════╝
+)");
+    }
+
     void printLolinS3ASCII() const {
         fprintf(stderr, R"(
     ╔══════════════════════════════════════╗

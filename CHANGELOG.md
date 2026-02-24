@@ -2,6 +2,23 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.16.0] — 2026-02-24
+
+### Added
+- **AsyncMqttClient test** — Full test coverage for async MQTT client mock (connect, disconnect, subscribe, unsubscribe, publish, message injection, reset, chaining)
+- **BluetoothSerial test** — Comprehensive test for BT Serial SPP mock (begin/end, connect/disconnect, read/write, readString, readStringUntil, readBytes, inject, TX data)
+- **ESPmDNS enhanced mock** — Added service query/discovery with `queryService()`, `hostname()`, `IP()`, `port()`, `txt()`, `txtCount()`, test helpers (`_addQueryResult`, `_clearQueryResults`, `_reset`)
+- **ESPmDNS test** — Full test for mDNS hostname, service registration, TXT records, service discovery with injected results
+- **QT Py ESP32-C3 board** — Adafruit QT Py ESP32-C3 with STEMMA QT, 11 GPIO, NeoPixel, ASCII art
+- **TinyPICO board** — Unexpected Maker TinyPICO with ESP32-PICO-D4, APA102 LED, LiPo, ASCII art
+- **ESP32 DevKit V1 board** — Classic ESP32-WROOM-32 development board with 38 GPIO, ASCII art
+- **mqtt_async_sensor example** — Async MQTT temperature/humidity publisher
+- **bt_serial_bridge example** — Bidirectional Bluetooth Serial ↔ USB Serial bridge
+- **mdns_discovery example** — mDNS hostname registration, service advertisement, and network discovery
+
+### Stats
+- **280 tests**, **287 examples**, **36 boards**
+
 ## [v1.15.0] — 2026-02-24
 
 ### Added
