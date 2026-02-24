@@ -2,6 +2,16 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.14.0] — 2026-02-24
+
+### Added
+- **INA226** power monitor mock — bus voltage, shunt voltage, current, power calculation, configurable averaging (1–1024), conversion times, operating modes, calibration with custom shunt resistance, over-current and over-voltage alert thresholds, reset
+- **MAX44009** ambient light sensor mock — lux reading (0.045–188,000 lux), manual/continuous mode, integration time (6ms–800ms), high/low thresholds, interrupt enable, threshold timer, error injection
+- **Adafruit BusIO** — `Adafruit_I2CDevice` and `Adafruit_SPIDevice` transport abstraction mocks with read/write/write_then_read, prefix support, test data injection for both I2C and SPI
+- **LOLIN S3** board — Wemos LOLIN S3 (ESP32-S3, 46 GPIO, 16MB Flash, WiFi/BT5, USB-C) with ASCII art
+- New tests: `test_ina226`, `test_max44009`, `test_adafruit_busio` (274 total)
+- New examples: `ina226_power_monitor`, `max44009_light_meter` (281 total)
+
 ## [v1.13.0] — 2026-02-24
 
 ### Added

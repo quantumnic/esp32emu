@@ -34,7 +34,8 @@ enum class BoardType {
     WAVESHARE_ESP32S3_ZERO,
     FEATHER_ESP32C6,
     M5ATOM_LITE,
-    FIREBEETLE_ESP32
+    FIREBEETLE_ESP32,
+    LOLIN_S3
 };
 
 struct BoardConfig {
@@ -82,6 +83,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::FEATHER_ESP32C6,"Feather ESP32-C6","ESP32-C6",  22, 6,  524288,  8388608, 160, true,  true,  13},
         {BoardType::M5ATOM_LITE,    "M5Atom Lite",    "ESP32-PICO-D4",26, 8, 524288, 4194304, 240, true,  true,  -1},
         {BoardType::FIREBEETLE_ESP32,"FireBeetle ESP32","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 2},
+        {BoardType::LOLIN_S3,       "LOLIN S3",       "ESP32-S3",       46,10, 524288, 16777216, 240, true,  true,  -1},
     };
     return configs[static_cast<int>(t)];
 }
@@ -114,6 +116,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "feather-c6" || name == "feather-esp32c6" || name == "feather-esp32-c6") return BoardType::FEATHER_ESP32C6;
         if (name == "m5atom" || name == "m5atom-lite" || name == "m5atomlite") return BoardType::M5ATOM_LITE;
     if (name == "firebeetle" || name == "firebeetle-esp32" || name == "dfrobot-firebeetle") return BoardType::FIREBEETLE_ESP32;
+    if (name == "lolin-s3" || name == "wemos-s3" || name == "lolin-s3-esp32") return BoardType::LOLIN_S3;
     return BoardType::ESP32; // default
 }
 
@@ -187,6 +190,8 @@ public:
             case BoardType::WAVESHARE_ESP32S3_ZERO: printWaveshareESP32S3ZeroASCII(); break;
             case BoardType::FEATHER_ESP32C6: printFeatherESP32C6ASCII(); break;
             case BoardType::FIREBEETLE_ESP32: printFireBeetleESP32ASCII(); break;
+            case BoardType::M5ATOM_LITE: printM5AtomLiteASCII(); break;
+            case BoardType::LOLIN_S3: printLolinS3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -478,6 +483,38 @@ private:
     ║  GPIO0-GPIO27 [■■■■■■■■■■■■■■■■]   ║
     ║  GDI [══]  LiPo [🔋]  LED [💡]     ║
     ║  USB-C [═══]  BOOT [●]  RST [●]    ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printM5AtomLiteASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║         M5Atom Lite                  ║
+    ║         ESP32-PICO-D4 @ 240MHz       ║
+    ║                                      ║
+    ║  ┌────────────┐                      ║
+    ║  │  ◉  PICO   │  WiFi/BT            ║
+    ║  │  24x24mm   │  4MB Flash           ║
+    ║  └────────────┘                      ║
+    ║  SK6812 LED [🌈]  IR [📡]           ║
+    ║  Button [●]  Grove [■■]             ║
+    ║  USB-C [═══]  GPIO [■■■■■■]         ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printLolinS3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║         LOLIN S3                     ║
+    ║         ESP32-S3 @ 240MHz            ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-S3      │  WiFi/BT5    ║
+    ║  │     16MB Flash     │  512KB SRAM  ║
+    ║  └────────────────────┘              ║
+    ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
+    ║  USB-C [═══]  LiPo [🔋]            ║
+    ║  BOOT [●]  RST [●]  LED [💡]       ║
     ╚══════════════════════════════════════╝
 )");
     }
