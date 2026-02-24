@@ -2,6 +2,16 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.11.0] — 2026-02-24
+
+### Added
+- **Sensirion SCD4x** (SCD40/SCD41) CO2 sensor mock — periodic/low-power/single-shot measurement, temperature offset, altitude/pressure compensation, forced recalibration, ASC, power management, serial number
+- **Adafruit LIS3MDL** 3-axis magnetometer mock — configurable range (4-16 Gauss), data rate, operation/performance modes, interrupt config, compass heading calculation
+- **Adafruit ADXL345** 3-axis accelerometer mock — range (2-16G), data rate, tap/double-tap detection, free-fall, activity/inactivity, pitch/roll calculation
+- **DFRobotDFPlayerMini** MP3 player mock — play/pause/stop, next/previous, volume (0-30), EQ, folder/track playback, loop, DAC, sleep/wake, message events
+- 4 new examples: `scd4x_co2_monitor`, `lis3mdl_compass`, `adxl345_motion_detect`, `dfplayer_jukebox`
+- 261 tests, 267 examples
+
 ## [v1.10.0] — 2026-02-23
 
 ### Added

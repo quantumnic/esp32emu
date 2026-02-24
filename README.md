@@ -9,7 +9,7 @@
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
     <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-26-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-263-orange.svg" alt="Examples"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-267-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -98,6 +98,10 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📺 **LiquidCrystal I2C** — HD44780 character LCD via I2C, multi-row text, backlight, custom chars
 - 🎛️ **PCA9685** — 16-channel PWM servo driver, frequency control, microsecond positioning
 - 🌡️ **MS5611** — High-resolution barometric pressure sensor, altitude calculation, oversampling
+- 🌫️ **SCD4x (SCD40/SCD41)** — Sensirion CO2, temperature, humidity sensor, periodic/single-shot, altitude/pressure compensation
+- 🧭 **LIS3MDL magnetometer** — 3-axis magnetometer, configurable range/data rate, interrupt, compass heading
+- 📐 **ADXL345 accelerometer** — 3-axis accelerometer, tap/free-fall/activity detection, pitch/roll calculation
+- 🎵 **DFPlayer Mini** — MP3 player module, play/pause/stop, volume, EQ, folders, loop, DAC, sleep/wake
 - 📡 **AsyncUDP** — Event-driven UDP with packet handler, broadcast, multicast, test injection
 - 🕐 **RTClib** — DS1307, DS3231, PCF8523 RTC mocks with DateTime, TimeSpan, NVRAM, temperature
 - 🔌 **ESP-IDF v5 I2C master** — i2c_new_master_bus, add_device, transmit/receive, probe, test helpers
