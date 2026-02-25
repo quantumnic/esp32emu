@@ -46,7 +46,9 @@ enum class BoardType {
     SPARKFUN_THINGPLUS_C,
     ESP32S3_DEVKITC_1,
     UM_FEATHERS3,
-    FEATHER_ESP32S3_TFT
+    FEATHER_ESP32S3_TFT,
+    M5STAMP_S3,
+    LILYGO_T_BEAM
 };
 
 struct BoardConfig {
@@ -106,6 +108,8 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::ESP32S3_DEVKITC_1,  "ESP32-S3-DevKitC-1","ESP32-S3-WROOM-1",48,10, 524288, 16777216, 240, true, true, 48},
         {BoardType::UM_FEATHERS3,       "UM FeatherS3",     "ESP32-S3",        21, 6, 524288,  8388608, 240, true,  true,  13},
         {BoardType::FEATHER_ESP32S3_TFT,"Feather ESP32-S3 TFT","ESP32-S3",    21, 6, 524288,  4194304, 240, true,  true,  13},
+        {BoardType::M5STAMP_S3,     "M5Stamp S3",      "ESP32-S3",       10, 4, 524288,  8388608, 240, true,  true,  21},
+        {BoardType::LILYGO_T_BEAM,  "LilyGO T-Beam",   "ESP32-D0WDQ6",  40, 8, 524288,  4194304, 240, true,  true,  -1},
     };
     return configs[static_cast<int>(t)];
 }
@@ -150,6 +154,8 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "devkitc-1" || name == "esp32s3-devkitc-1" || name == "esp32-s3-devkitc" || name == "devkitc1") return BoardType::ESP32S3_DEVKITC_1;
     if (name == "feathers3" || name == "um-feathers3" || name == "feather-s3-um") return BoardType::UM_FEATHERS3;
     if (name == "feather-esp32s3-tft" || name == "feather-s3-tft") return BoardType::FEATHER_ESP32S3_TFT;
+    if (name == "m5stamp" || name == "m5stamp-s3" || name == "m5stamps3") return BoardType::M5STAMP_S3;
+    if (name == "t-beam" || name == "tbeam" || name == "lilygo-tbeam" || name == "lilygo-t-beam") return BoardType::LILYGO_T_BEAM;
     return BoardType::ESP32; // default
 }
 
@@ -231,6 +237,8 @@ public:
             case BoardType::UM_TINYS3: printTinyS3ASCII(); break;
             case BoardType::SPARKFUN_THINGPLUS_C: printSparkFunThingPlusCASCII(); break;
             case BoardType::ESP32S3_DEVKITC_1: printESP32S3DevKitC1ASCII(); break;
+            case BoardType::M5STAMP_S3: printM5StampS3ASCII(); break;
+            case BoardType::LILYGO_T_BEAM: printLilyGOTBeamASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -668,6 +676,39 @@ private:
     ║  GPIO0-GPIO48 [■■■■■■■■■■■■■■■■■]  ║
     ║  USB [═══]  UART [═══]              ║
     ║  BOOT [●]  RST [●]  RGB [🌈]       ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printM5StampS3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║         M5Stamp S3                   ║
+    ║         ESP32-S3 @ 240MHz            ║
+    ║                                      ║
+    ║       ┌──────────┐                   ║
+    ║       │ ◉ S3     │  WiFi/BT5         ║
+    ║       │ 8MB Flash│  512KB SRAM       ║
+    ║       └──────────┘                   ║
+    ║  GPIO1-GPIO21 [■■■■■■■■■]           ║
+    ║  1.27mm stamp pads [▪▪▪▪▪▪▪▪]      ║
+    ║  USB-C [═══]  RST [●]  RGB [🌈]    ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printLilyGOTBeamASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║       LilyGO T-Beam                 ║
+    ║       ESP32-D0WDQ6 @ 240MHz          ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32         │  WiFi/BT     ║
+    ║  │     4MB Flash      │  520KB SRAM  ║
+    ║  └────────────────────┘              ║
+    ║  [GPS NEO-6M] 📡  [LoRa SX1276] 📻 ║
+    ║  GPIO0-GPIO39 [■■■■■■■■■■■■■■■■]   ║
+    ║  USB [═══]  18650 [🔋]  OLED [□]   ║
+    ║  BOOT [●]  RST [●]  LED [💡]       ║
     ╚══════════════════════════════════════╝
 )");
     }
