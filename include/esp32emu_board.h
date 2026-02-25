@@ -44,7 +44,8 @@ enum class BoardType {
     ESP32_DEVKIT_V1,
     UM_TINYS3,
     SPARKFUN_THINGPLUS_C,
-    ESP32S3_DEVKITC_1
+    ESP32S3_DEVKITC_1,
+    UM_FEATHERS3
 };
 
 struct BoardConfig {
@@ -102,6 +103,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::UM_TINYS3,         "TinyS3",        "ESP32-S3",       22, 8, 524288, 8388608, 240, true,  true,  18},
         {BoardType::SPARKFUN_THINGPLUS_C,"SparkFun Thing Plus C","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 13},
         {BoardType::ESP32S3_DEVKITC_1,  "ESP32-S3-DevKitC-1","ESP32-S3-WROOM-1",48,10, 524288, 16777216, 240, true, true, 48},
+        {BoardType::UM_FEATHERS3,       "UM FeatherS3",     "ESP32-S3",        21, 6, 524288,  8388608, 240, true,  true,  13},
     };
     return configs[static_cast<int>(t)];
 }
@@ -144,6 +146,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "tinys3" || name == "um-tinys3" || name == "tiny-s3") return BoardType::UM_TINYS3;
     if (name == "thingplus-c" || name == "sparkfun-thingplus-c" || name == "thing-plus-c") return BoardType::SPARKFUN_THINGPLUS_C;
     if (name == "devkitc-1" || name == "esp32s3-devkitc-1" || name == "esp32-s3-devkitc" || name == "devkitc1") return BoardType::ESP32S3_DEVKITC_1;
+    if (name == "feathers3" || name == "um-feathers3" || name == "feather-s3-um") return BoardType::UM_FEATHERS3;
     return BoardType::ESP32; // default
 }
 
