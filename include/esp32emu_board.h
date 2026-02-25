@@ -45,7 +45,8 @@ enum class BoardType {
     UM_TINYS3,
     SPARKFUN_THINGPLUS_C,
     ESP32S3_DEVKITC_1,
-    UM_FEATHERS3
+    UM_FEATHERS3,
+    FEATHER_ESP32S3_TFT
 };
 
 struct BoardConfig {
@@ -104,6 +105,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::SPARKFUN_THINGPLUS_C,"SparkFun Thing Plus C","ESP32-WROOM-32E",28, 8, 524288, 16777216, 240, true, true, 13},
         {BoardType::ESP32S3_DEVKITC_1,  "ESP32-S3-DevKitC-1","ESP32-S3-WROOM-1",48,10, 524288, 16777216, 240, true, true, 48},
         {BoardType::UM_FEATHERS3,       "UM FeatherS3",     "ESP32-S3",        21, 6, 524288,  8388608, 240, true,  true,  13},
+        {BoardType::FEATHER_ESP32S3_TFT,"Feather ESP32-S3 TFT","ESP32-S3",    21, 6, 524288,  4194304, 240, true,  true,  13},
     };
     return configs[static_cast<int>(t)];
 }
@@ -147,6 +149,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "thingplus-c" || name == "sparkfun-thingplus-c" || name == "thing-plus-c") return BoardType::SPARKFUN_THINGPLUS_C;
     if (name == "devkitc-1" || name == "esp32s3-devkitc-1" || name == "esp32-s3-devkitc" || name == "devkitc1") return BoardType::ESP32S3_DEVKITC_1;
     if (name == "feathers3" || name == "um-feathers3" || name == "feather-s3-um") return BoardType::UM_FEATHERS3;
+    if (name == "feather-esp32s3-tft" || name == "feather-s3-tft") return BoardType::FEATHER_ESP32S3_TFT;
     return BoardType::ESP32; // default
 }
 
@@ -630,6 +633,24 @@ private:
     ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
     ║  USB-C [═══]  LiPo [🔋]            ║
     ║  BOOT [●]  RST [●]  LED [💡]       ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+    void printFeatherESP32S3TFTASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║    Adafruit Feather ESP32-S3 TFT     ║
+    ║    ESP32-S3 @ 240MHz                 ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-S3      │  WiFi/BT5    ║
+    ║  │     4MB Flash      │  512KB SRAM  ║
+    ║  │     2MB PSRAM      │  USB-C       ║
+    ║  └────────────────────┘              ║
+    ║  [1.14" 240x135 TFT] ███████████    ║
+    ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
+    ║  USB-C [═══]  LiPo [🔋]  STEMMA QT ║
+    ║  BOOT [●]  RST [●]  NeoPixel [🌈]  ║
     ╚══════════════════════════════════════╝
 )");
     }

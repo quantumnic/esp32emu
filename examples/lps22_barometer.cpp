@@ -1,34 +1,31 @@
+// esp32emu example — LPS22 barometric pressure sensor: altitude estimation
 #include <Arduino.h>
-#include <Adafruit_LPS22.h>
+#include <Adafruit_LPS2X.h>
+#include <cmath>
 
 Adafruit_LPS22 lps;
 
+float pressureToAltitude(float pressure, float seaLevelPressure = 1013.25f) {
+    return 44330.0f * (1.0f - pow(pressure / seaLevelPressure, 0.1903f));
+}
+
 void setup() {
     Serial.begin(115200);
-    Serial.println("LPS22 Barometric Pressure Sensor");
-
     if (!lps.begin_I2C()) {
-        Serial.println("Failed to find LPS22!");
+        Serial.println("LPS22 not found!");
         while (1) delay(10);
     }
-
     lps.setDataRate(LPS22_RATE_10_HZ);
-    Serial.println("LPS22 initialized @ 10 Hz");
+    Serial.println("LPS22 barometer ready");
 }
 
 void loop() {
-    if (lps.pressureAvailable()) {
-        float pressure = lps.readPressure();
-        float temperature = lps.readTemperature();
+    sensors_event_t_lps2x pressure, temp;
+    lps.getEvent(&pressure, &temp);
 
-        // Altitude from barometric formula (ISA)
-        float altitude = 44330.0 * (1.0 - pow(pressure / 1013.25, 0.1903));
-
-        Serial.print("Pressure: "); Serial.print(pressure, 2); Serial.println(" hPa");
-        Serial.print("Temperature: "); Serial.print(temperature, 1); Serial.println(" °C");
-        Serial.print("Altitude: "); Serial.print(altitude, 1); Serial.println(" m");
-        Serial.println("---");
-    }
+    float altitude = pressureToAltitude(pressure.pressure);
+    Serial.printf("Pressure: %.2f hPa, Temp: %.1f °C, Alt: %.1f m\n",
+                  pressure.pressure, temp.temperature, altitude);
 
     delay(1000);
 }

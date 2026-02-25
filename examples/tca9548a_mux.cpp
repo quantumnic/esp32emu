@@ -1,30 +1,32 @@
-// TCA9548A I2C multiplexer example — scan sensors on multiple I2C buses
+// esp32emu example — TCA9548A I2C multiplexer: scan devices on multiple buses
 #include <Arduino.h>
-#include "TCA9548A.h"
+#include <Adafruit_TCA9548A.h>
 
-TCA9548A mux(0x70);
+Adafruit_TCA9548A mux;
 
 void setup() {
     Serial.begin(115200);
-    Serial.println("TCA9548A I2C Multiplexer");
+    if (!mux.begin()) {
+        Serial.println("TCA9548A not found!");
+        while (1) delay(10);
+    }
+    Serial.println("TCA9548A I2C multiplexer ready");
 
-    mux.begin();
-
-    // Select each channel and "scan"
+    // Scan each channel
     for (uint8_t ch = 0; ch < 8; ch++) {
         mux.selectChannel(ch);
-        Serial.print("Channel "); Serial.print(ch);
-        Serial.print(" active: "); Serial.println(mux.isChannelActive(ch) ? "yes" : "no");
+        Serial.printf("Channel %u selected (scanning...)\n", ch);
+        delay(50);
     }
-
-    // Multi-channel mode
-    mux.setChannelMask(0x05); // channels 0 + 2
-    Serial.print("Mask: 0x"); Serial.println(mux.getChannelMask(), HEX);
-
-    mux.closeAll();
-    Serial.println("All channels closed.");
+    mux.disableAll();
+    Serial.println("All channels disabled");
 }
 
 void loop() {
-    delay(1000);
+    // Cycle through channels
+    for (uint8_t ch = 0; ch < 8; ch++) {
+        mux.selectChannel(ch);
+        Serial.printf("Reading from channel %u\n", ch);
+        delay(500);
+    }
 }
