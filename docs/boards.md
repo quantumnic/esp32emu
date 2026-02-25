@@ -124,3 +124,31 @@ Warnings are printed to stderr but execution continues (matching real Arduino be
 **Limitations:**
 - Several GPIOs used by the display (ST7789)
 - Built-in LED pin is -1
+
+---
+
+## ESP32-C3 SuperMini
+
+Ultra-compact RISC-V development board with USB-C.
+
+```
+./esp32emu run --board c3-supermini sketch.ino
+```
+
+| Feature     | Value |
+|------------|-------|
+| Chip       | ESP32-C3 |
+| CPU        | 160 MHz (RISC-V) |
+| RAM        | 400 KB |
+| Flash      | 4 MB |
+| GPIO       | 22 digital, 6 analog |
+| WiFi       | ✅ |
+| Bluetooth  | ❌ |
+| Built-in LED | GPIO 8 |
+
+**Best for:** Tiny IoT projects, breadboard-friendly, USB-C, ultra low cost.
+
+**Limitations:**
+- Single-core RISC-V (no dual-core)
+- No Bluetooth Classic, only BLE via WiFi stack
+- Limited GPIO count compared to S3 boards

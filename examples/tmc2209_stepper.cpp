@@ -1,42 +1,48 @@
-// esp32emu example — TMC2209 Stepper Motor Driver
-// Configure and control a TMC2209 via UART.
-#include "Arduino.h"
-#include "TMC2209.h"
+// esp32emu example — TMC2209 Stepper Motor Driver via UART
+#include <Arduino.h>
+#include <TMCStepper.h>
 
-TMC2209 driver;
+#define STEP_PIN   25
+#define DIR_PIN    26
+#define EN_PIN     27
+#define R_SENSE    0.11f
+
+TMC2209Stepper driver(&Serial1, R_SENSE, 0);
 
 void setup() {
     Serial.begin(115200);
-    Serial.println("TMC2209 Stepper Driver Demo");
+    Serial1.begin(115200);
 
-    driver.setup(Serial1, 115200, 0);
+    pinMode(STEP_PIN, OUTPUT);
+    pinMode(DIR_PIN, OUTPUT);
+    pinMode(EN_PIN, OUTPUT);
+    digitalWrite(EN_PIN, LOW); // Enable driver
 
-    if (driver.isSetupAndCommunicating()) {
-        Serial.printf("TMC2209 connected, version: 0x%02X\n", driver.getVersion());
-    }
+    driver.begin();
+    driver.rms_current(800);     // 800mA RMS
+    driver.microsteps(16);       // 16 microsteps
+    driver.en_spreadCycle(false); // StealthChop mode
+    driver.SGTHRS(50);           // StallGuard threshold
 
-    // Configure
-    driver.setRunCurrent(50);
-    driver.setHoldCurrent(25);
-    driver.setMicrostepsPerStep(16);
-    driver.enableStealthChop();
-    driver.setStandstillMode(TMC2209::FREEWHEELING);
-    driver.setStallGuardThreshold(50);
-
-    Serial.printf("Run current: %d%%\n", driver.getRunCurrent());
-    Serial.printf("Microsteps: %d\n", driver.getMicrostepsPerStep());
-    Serial.printf("StealthChop: %s\n", driver.isStealthChopEnabled() ? "ON" : "OFF");
-
-    // Enable and move
-    driver.enable();
-    driver.moveAtVelocity(10000);
-    Serial.printf("Moving at velocity: %d\n", (int)driver.getVelocity());
-
-    delay(2000);
-
-    driver.moveAtVelocity(0);
-    Serial.println("Stopped");
-    Serial.printf("Standstill: %s\n", driver.isStandstill() ? "yes" : "no");
+    Serial.print("Connection: ");
+    Serial.println(driver.test_connection() == 0 ? "OK" : "FAIL");
+    Serial.print("Microsteps: ");
+    Serial.println(driver.microsteps());
+    Serial.println("TMC2209 configured.");
 }
 
-void loop() { delay(1000); }
+void loop() {
+    // Step the motor
+    digitalWrite(DIR_PIN, HIGH);
+    for (int i = 0; i < 200 * 16; i++) { // One full rotation at 16 microsteps
+        digitalWrite(STEP_PIN, HIGH);
+        delayMicroseconds(100);
+        digitalWrite(STEP_PIN, LOW);
+        delayMicroseconds(100);
+    }
+
+    Serial.print("StallGuard: ");
+    Serial.println(driver.SG_RESULT());
+
+    delay(1000);
+}

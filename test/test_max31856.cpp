@@ -1,36 +1,86 @@
-#include "MAX31856.h"
+// esp32emu test — Adafruit MAX31856 Precision Thermocouple
 #include <cassert>
 #include <cstdio>
 #include <cmath>
+#define ESP32EMU_MOCK
+#include "Arduino.h"
+#include "Adafruit_MAX31856.h"
 
 int main() {
-    Adafruit_MAX31856 tc(5); // CS pin 5
-    assert(tc.begin());
+    // Test init
+    {
+        Adafruit_MAX31856 tc(10);
+        assert(!tc.test_isInitialized());
+        assert(tc.begin());
+        assert(tc.test_isInitialized());
+    }
 
-    // Default type K
-    assert(tc.getThermocoupleType() == MAX31856_TCTYPE_K);
-    tc.setThermocoupleType(MAX31856_TCTYPE_J);
-    assert(tc.getThermocoupleType() == MAX31856_TCTYPE_J);
+    // Test default temperatures
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        assert(fabs(tc.readThermocoupleTemperature() - 250.0f) < 0.01f);
+        assert(fabs(tc.readCJTemperature() - 24.0f) < 0.01f);
+    }
 
-    // Default temperatures
-    assert(std::fabs(tc.readThermocoupleTemperature() - 250.0f) < 0.01f);
-    assert(std::fabs(tc.readCJTemperature() - 25.0f) < 0.01f);
+    // Test custom temperatures
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        tc.test_setThermocoupleTemp(1200.0f);
+        tc.test_setCJTemp(28.0f);
+        assert(fabs(tc.readThermocoupleTemperature() - 1200.0f) < 0.01f);
+        assert(fabs(tc.readCJTemperature() - 28.0f) < 0.01f);
+    }
 
-    // Test helpers
-    tc.esp32emu_set_tc_temperature(1200.5f);
-    tc.esp32emu_set_cj_temperature(28.3f);
-    assert(std::fabs(tc.readThermocoupleTemperature() - 1200.5f) < 0.01f);
-    assert(std::fabs(tc.readCJTemperature() - 28.3f) < 0.01f);
+    // Test thermocouple type
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        assert(tc.getThermocoupleType() == MAX31856_TCTYPE_K);
+        tc.setThermocoupleType(MAX31856_TCTYPE_J);
+        assert(tc.getThermocoupleType() == MAX31856_TCTYPE_J);
+    }
 
-    // Fault
-    assert(tc.readFault() == 0);
-    tc.esp32emu_set_fault(0x42);
-    assert(tc.readFault() == 0x42);
+    // Test conversion mode
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        assert(tc.getConversionMode() == MAX31856_ONESHOT);
+        tc.setConversionMode(MAX31856_CONTINUOUS);
+        assert(tc.getConversionMode() == MAX31856_CONTINUOUS);
+    }
 
-    // One-shot conversion
-    tc.setConversionMode(true);
-    tc.triggerOneShot();
-    assert(tc.conversionComplete());
+    // Test fault
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        assert(tc.readFault() == 0);
+        tc.test_setFault(0x04);
+        assert(tc.readFault() == 0x04);
+    }
+
+    // Test one-shot trigger
+    {
+        Adafruit_MAX31856 tc(10);
+        tc.begin();
+        assert(!tc.test_oneShotTriggered());
+        tc.triggerOneShot();
+        assert(tc.test_oneShotTriggered());
+        assert(tc.conversionComplete());
+    }
+
+    // Not initialized returns 0
+    {
+        Adafruit_MAX31856 tc(10);
+        assert(fabs(tc.readThermocoupleTemperature()) < 0.01f);
+    }
+
+    // Test SPI pin constructor
+    {
+        Adafruit_MAX31856 tc(10, 11, 12, 13);
+        assert(tc.begin());
+    }
 
     printf("test_max31856: all assertions passed\n");
     return 0;

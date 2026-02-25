@@ -50,7 +50,8 @@ enum class BoardType {
     M5STAMP_S3,
     LILYGO_T_BEAM,
     HELTEC_WIFI_LORA_32_V3,
-    ESP32S3_BOX_3
+    ESP32S3_BOX_3,
+    ESP32C3_SUPERMINI
 };
 
 struct BoardConfig {
@@ -114,6 +115,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::LILYGO_T_BEAM,  "LilyGO T-Beam",   "ESP32-D0WDQ6",  40, 8, 524288,  4194304, 240, true,  true,  -1},
         {BoardType::HELTEC_WIFI_LORA_32_V3,"Heltec WiFi LoRa 32 V3","ESP32-S3FN8",36, 8, 524288, 8388608, 240, true, true, 35},
         {BoardType::ESP32S3_BOX_3,  "ESP32-S3-BOX-3",  "ESP32-S3",       46, 6, 524288, 16777216, 240, true,  true,  47},
+        {BoardType::ESP32C3_SUPERMINI,"ESP32-C3 SuperMini","ESP32-C3",    22, 6, 409600,  4194304, 160, true,  false, 8},
     };
     return configs[static_cast<int>(t)];
 }
@@ -162,6 +164,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "t-beam" || name == "tbeam" || name == "lilygo-tbeam" || name == "lilygo-t-beam") return BoardType::LILYGO_T_BEAM;
     if (name == "heltec-lora" || name == "heltec-lora-v3" || name == "heltec-wifi-lora-32-v3" || name == "wifi-lora-32-v3") return BoardType::HELTEC_WIFI_LORA_32_V3;
     if (name == "esp32-s3-box-3" || name == "s3-box-3" || name == "box3" || name == "esp32s3box3") return BoardType::ESP32S3_BOX_3;
+    if (name == "esp32-c3-supermini" || name == "c3-supermini" || name == "supermini" || name == "esp32c3supermini") return BoardType::ESP32C3_SUPERMINI;
     return BoardType::ESP32; // default
 }
 
@@ -247,6 +250,7 @@ public:
             case BoardType::LILYGO_T_BEAM: printLilyGOTBeamASCII(); break;
             case BoardType::HELTEC_WIFI_LORA_32_V3: printHeltecLoRaV3ASCII(); break;
             case BoardType::ESP32S3_BOX_3: printESP32S3Box3ASCII(); break;
+            case BoardType::ESP32C3_SUPERMINI: printESP32C3SuperMiniASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -737,6 +741,23 @@ private:
     ║  USB-C [═══]  LiPo [🔋]            ║
     ║  PRG [●]  RST [●]  LED [💡 G35]    ║
     ╚══════════════════════════════════════╝
+)");
+    }
+
+    void printESP32C3SuperMiniASCII() const {
+        fprintf(stderr, R"(
+    ╔═══════════════════════╗
+    ║  ESP32-C3 SuperMini   ║
+    ║  RISC-V @ 160MHz      ║
+    ║                       ║
+    ║  ┌─────────────────┐  ║
+    ║  │ ESP32-C3  4MB   │  ║
+    ║  │ 400KB SRAM      │  ║
+    ║  └─────────────────┘  ║
+    ║  GPIO0-GPIO21  [■■■]  ║
+    ║  USB-C [═══]          ║
+    ║  BOOT [●] LED [💡 G8] ║
+    ╚═══════════════════════╝
 )");
     }
 
