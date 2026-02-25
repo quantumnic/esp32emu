@@ -49,7 +49,8 @@ enum class BoardType {
     FEATHER_ESP32S3_TFT,
     M5STAMP_S3,
     LILYGO_T_BEAM,
-    HELTEC_WIFI_LORA_32_V3
+    HELTEC_WIFI_LORA_32_V3,
+    ESP32S3_BOX_3
 };
 
 struct BoardConfig {
@@ -112,6 +113,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::M5STAMP_S3,     "M5Stamp S3",      "ESP32-S3",       10, 4, 524288,  8388608, 240, true,  true,  21},
         {BoardType::LILYGO_T_BEAM,  "LilyGO T-Beam",   "ESP32-D0WDQ6",  40, 8, 524288,  4194304, 240, true,  true,  -1},
         {BoardType::HELTEC_WIFI_LORA_32_V3,"Heltec WiFi LoRa 32 V3","ESP32-S3FN8",36, 8, 524288, 8388608, 240, true, true, 35},
+        {BoardType::ESP32S3_BOX_3,  "ESP32-S3-BOX-3",  "ESP32-S3",       46, 6, 524288, 16777216, 240, true,  true,  47},
     };
     return configs[static_cast<int>(t)];
 }
@@ -159,6 +161,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "m5stamp" || name == "m5stamp-s3" || name == "m5stamps3") return BoardType::M5STAMP_S3;
     if (name == "t-beam" || name == "tbeam" || name == "lilygo-tbeam" || name == "lilygo-t-beam") return BoardType::LILYGO_T_BEAM;
     if (name == "heltec-lora" || name == "heltec-lora-v3" || name == "heltec-wifi-lora-32-v3" || name == "wifi-lora-32-v3") return BoardType::HELTEC_WIFI_LORA_32_V3;
+    if (name == "esp32-s3-box-3" || name == "s3-box-3" || name == "box3" || name == "esp32s3box3") return BoardType::ESP32S3_BOX_3;
     return BoardType::ESP32; // default
 }
 
@@ -243,6 +246,7 @@ public:
             case BoardType::M5STAMP_S3: printM5StampS3ASCII(); break;
             case BoardType::LILYGO_T_BEAM: printLilyGOTBeamASCII(); break;
             case BoardType::HELTEC_WIFI_LORA_32_V3: printHeltecLoRaV3ASCII(); break;
+            case BoardType::ESP32S3_BOX_3: printESP32S3Box3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -732,6 +736,25 @@ private:
     ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
     ║  USB-C [═══]  LiPo [🔋]            ║
     ║  PRG [●]  RST [●]  LED [💡 G35]    ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+
+    void printESP32S3Box3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║       ESP32-S3-BOX-3                 ║
+    ║       ESP32-S3 @ 240MHz              ║
+    ║                                      ║
+    ║  ┌────────────────────────────┐      ║
+    ║  │  ◉  ESP32-S3              │      ║
+    ║  │     16MB Flash  8MB PSRAM │      ║
+    ║  └────────────────────────────┘      ║
+    ║  [2.4" IPS 320x240 Touch LCD] ████  ║
+    ║  🎤 Dual Mic   🔊 Speaker 1W       ║
+    ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
+    ║  USB-C [═══]  PMOD [═══]            ║
+    ║  BOOT [●]  RST [●]  RGB [🌈 G47]  ║
     ╚══════════════════════════════════════╝
 )");
     }

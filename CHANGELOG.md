@@ -2,6 +2,17 @@
 
 All notable changes to esp32emu are documented here.
 
+## [v1.22.0] — 2026-02-25
+
+### Added
+- **Adafruit TMP117 mock** — High-accuracy ±0.1°C I2C temperature sensor, rate/averaging config, alert thresholds (high/low), offset, soft reset, device ID
+- **ezButton mock** — Debounce button library with press/release detection, count modes (falling/rising/both), active-low support
+- **Adafruit SCD30 mock** — NDIR CO2/temperature/humidity sensor, continuous measurement, auto/forced calibration, altitude/temperature offset, measurement interval
+- **ESP32-S3-BOX-3 board** — Espressif AI dev kit with 2.4" touch LCD, dual mic, speaker, 16MB flash, 8MB PSRAM, ASCII art
+- 4 new examples: `tmp117_temperature`, `ezbutton_debounce`, `scd30_co2_monitor`, `s3_box3_demo`
+- 3 new test files: `test_adafruit_tmp117`, `test_ezbutton`, `test_adafruit_scd30`
+- **307 tests, 317 examples, 42 boards**
+
 ## [v1.19.0] — 2026-02-24
 
 ### Added
