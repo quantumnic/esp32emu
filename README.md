@@ -8,8 +8,8 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
-    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-40-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-300-orange.svg" alt="Examples"></a>
+    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-41-green.svg" alt="Boards"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-313-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📡 **WiFi simulation** — STA/AP mode, connection lifecycle, scan results
 - 🖥️ **Rich Terminal UI** — Colored output, pin visualization, ASCII board diagrams
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
-- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, M5Atom Lite, DFRobot FireBeetle ESP32, LOLIN S3, M5StickC Plus, TTGO T-Display, XIAO ESP32-C6, QT Py ESP32-C3, TinyPICO, ESP32 DevKit V1, UM TinyS3, SparkFun Thing Plus C, ESP32-S3-DevKitC-1, UM FeatherS3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill
+- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, M5Atom Lite, DFRobot FireBeetle ESP32, LOLIN S3, M5StickC Plus, TTGO T-Display, XIAO ESP32-C6, QT Py ESP32-C3, TinyPICO, ESP32 DevKit V1, UM TinyS3, SparkFun Thing Plus C, ESP32-S3-DevKitC-1, UM FeatherS3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill, Heltec WiFi LoRa 32 V3
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
 - 😴 **Deep sleep mock** — Test power management without exiting
@@ -98,6 +98,9 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 💾 **Wear Levelling** — ESP-IDF wear_levelling API mock with memory-backed flash, read/write/erase
 - ⚡ **Adafruit INA219** — High-side current/power sensor, calibration modes, power save
 - 📺 **LiquidCrystal I2C** — HD44780 character LCD via I2C, multi-row text, backlight, custom chars
+- 📡 **Adafruit PN532** — NFC/RFID reader mock with Mifare Classic/Ultralight, NDEF URI, GPIO, power management
+- 🌫️ **Adafruit SGP30** — eCO2/TVOC air quality sensor, baseline save/restore, humidity compensation
+- 🏭 **A4988 stepper driver** — NEMA17 stepper motor driver, microstepping (1-32), RPM control, enable/disable
 - 🎛️ **PCA9685** — 16-channel PWM servo driver, frequency control, microsecond positioning
 - 🌡️ **MS5611** — High-resolution barometric pressure sensor, altitude calculation, oversampling
 - 🏔️ **MPL3115A2** — Altimeter/barometer/temperature, oversample control, sea-level pressure config
@@ -318,6 +321,7 @@ make test
 | **SparkFun Thing Plus C** | ESP32-WROOM-32E | 28 | 8 | 512 KB | 16 MB | ✅ | ✅ |
 | **ESP32-S3-DevKitC-1** | ESP32-S3-WROOM-1 | 48 | 10 | 512 KB | 16 MB | ✅ | ✅ |
 | **UM FeatherS3** | ESP32-S3 | 21 | 6 | 512 KB | 8 MB | ✅ | ✅ |
+| **Heltec WiFi LoRa 32 V3** | ESP32-S3FN8 | 36 | 8 | 512 KB | 8 MB | ✅ | ✅ BLE 5 |
 
 > ⚠️ **Arduino boards:** WiFi/Bluetooth calls print a warning and are ignored. Pin limits are enforced per board. `LED_BUILTIN = 13` (vs pin 2 on ESP32).
 

@@ -48,7 +48,8 @@ enum class BoardType {
     UM_FEATHERS3,
     FEATHER_ESP32S3_TFT,
     M5STAMP_S3,
-    LILYGO_T_BEAM
+    LILYGO_T_BEAM,
+    HELTEC_WIFI_LORA_32_V3
 };
 
 struct BoardConfig {
@@ -110,6 +111,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::FEATHER_ESP32S3_TFT,"Feather ESP32-S3 TFT","ESP32-S3",    21, 6, 524288,  4194304, 240, true,  true,  13},
         {BoardType::M5STAMP_S3,     "M5Stamp S3",      "ESP32-S3",       10, 4, 524288,  8388608, 240, true,  true,  21},
         {BoardType::LILYGO_T_BEAM,  "LilyGO T-Beam",   "ESP32-D0WDQ6",  40, 8, 524288,  4194304, 240, true,  true,  -1},
+        {BoardType::HELTEC_WIFI_LORA_32_V3,"Heltec WiFi LoRa 32 V3","ESP32-S3FN8",36, 8, 524288, 8388608, 240, true, true, 35},
     };
     return configs[static_cast<int>(t)];
 }
@@ -156,6 +158,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "feather-esp32s3-tft" || name == "feather-s3-tft") return BoardType::FEATHER_ESP32S3_TFT;
     if (name == "m5stamp" || name == "m5stamp-s3" || name == "m5stamps3") return BoardType::M5STAMP_S3;
     if (name == "t-beam" || name == "tbeam" || name == "lilygo-tbeam" || name == "lilygo-t-beam") return BoardType::LILYGO_T_BEAM;
+    if (name == "heltec-lora" || name == "heltec-lora-v3" || name == "heltec-wifi-lora-32-v3" || name == "wifi-lora-32-v3") return BoardType::HELTEC_WIFI_LORA_32_V3;
     return BoardType::ESP32; // default
 }
 
@@ -239,6 +242,7 @@ public:
             case BoardType::ESP32S3_DEVKITC_1: printESP32S3DevKitC1ASCII(); break;
             case BoardType::M5STAMP_S3: printM5StampS3ASCII(); break;
             case BoardType::LILYGO_T_BEAM: printLilyGOTBeamASCII(); break;
+            case BoardType::HELTEC_WIFI_LORA_32_V3: printHeltecLoRaV3ASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -709,6 +713,25 @@ private:
     ║  GPIO0-GPIO39 [■■■■■■■■■■■■■■■■]   ║
     ║  USB [═══]  18650 [🔋]  OLED [□]   ║
     ║  BOOT [●]  RST [●]  LED [💡]       ║
+    ╚══════════════════════════════════════╝
+)");
+    }
+
+    void printHeltecLoRaV3ASCII() const {
+        fprintf(stderr, R"(
+    ╔══════════════════════════════════════╗
+    ║    Heltec WiFi LoRa 32 V3           ║
+    ║    ESP32-S3FN8 @ 240MHz              ║
+    ║                                      ║
+    ║  ┌────────────────────┐              ║
+    ║  │  ◉  ESP32-S3      │  WiFi/BT5    ║
+    ║  │     8MB Flash      │  512KB SRAM  ║
+    ║  └────────────────────┘              ║
+    ║  [SX1262 LoRa] 📻  868/915MHz      ║
+    ║  [0.96" OLED SSD1306] □□□□□□□       ║
+    ║  GPIO0-GPIO46 [■■■■■■■■■■■■■■■■]   ║
+    ║  USB-C [═══]  LiPo [🔋]            ║
+    ║  PRG [●]  RST [●]  LED [💡 G35]    ║
     ╚══════════════════════════════════════╝
 )");
     }
