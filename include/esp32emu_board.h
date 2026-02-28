@@ -51,7 +51,8 @@ enum class BoardType {
     LILYGO_T_BEAM,
     HELTEC_WIFI_LORA_32_V3,
     ESP32S3_BOX_3,
-    ESP32C3_SUPERMINI
+    ESP32C3_SUPERMINI,
+    LOLIN_D32_PRO
 };
 
 struct BoardConfig {
@@ -116,6 +117,7 @@ inline const BoardConfig& getBoardConfig(BoardType t) {
         {BoardType::HELTEC_WIFI_LORA_32_V3,"Heltec WiFi LoRa 32 V3","ESP32-S3FN8",36, 8, 524288, 8388608, 240, true, true, 35},
         {BoardType::ESP32S3_BOX_3,  "ESP32-S3-BOX-3",  "ESP32-S3",       46, 6, 524288, 16777216, 240, true,  true,  47},
         {BoardType::ESP32C3_SUPERMINI,"ESP32-C3 SuperMini","ESP32-C3",    22, 6, 409600,  4194304, 160, true,  false, 8},
+        {BoardType::LOLIN_D32_PRO,   "LOLIN D32 Pro",     "ESP32",       40, 18, 520000, 16777216, 240, true,  true,  2},
     };
     return configs[static_cast<int>(t)];
 }
@@ -165,6 +167,7 @@ inline BoardType parseBoardName(const std::string& name) {
     if (name == "heltec-lora" || name == "heltec-lora-v3" || name == "heltec-wifi-lora-32-v3" || name == "wifi-lora-32-v3") return BoardType::HELTEC_WIFI_LORA_32_V3;
     if (name == "esp32-s3-box-3" || name == "s3-box-3" || name == "box3" || name == "esp32s3box3") return BoardType::ESP32S3_BOX_3;
     if (name == "esp32-c3-supermini" || name == "c3-supermini" || name == "supermini" || name == "esp32c3supermini") return BoardType::ESP32C3_SUPERMINI;
+    if (name == "lolin-d32-pro" || name == "d32pro" || name == "lolind32pro" || name == "lolin-d32") return BoardType::LOLIN_D32_PRO;
     return BoardType::ESP32; // default
 }
 
@@ -251,6 +254,7 @@ public:
             case BoardType::HELTEC_WIFI_LORA_32_V3: printHeltecLoRaV3ASCII(); break;
             case BoardType::ESP32S3_BOX_3: printESP32S3Box3ASCII(); break;
             case BoardType::ESP32C3_SUPERMINI: printESP32C3SuperMiniASCII(); break;
+            case BoardType::LOLIN_D32_PRO: printLOLIND32ProASCII(); break;
             default: printESP32ASCII(); break;
         }
     }
@@ -777,6 +781,23 @@ private:
     ║  USB-C [═══]  PMOD [═══]            ║
     ║  BOOT [●]  RST [●]  RGB [🌈 G47]  ║
     ╚══════════════════════════════════════╝
+)");
+    }
+    void printLOLIND32ProASCII() const {
+        fprintf(stderr, R"(
+    ╔═══════════════════════════════╗
+    ║       LOLIN D32 Pro           ║
+    ║       ESP32 @ 240MHz          ║
+    ║                               ║
+    ║  ┌────────────────────────┐   ║
+    ║  │ ESP32-WROVER  16MB     │   ║
+    ║  │ 520KB SRAM  4MB PSRAM  │   ║
+    ║  └────────────────────────┘   ║
+    ║  [TFT connector] [SD slot]    ║
+    ║  GPIO0-GPIO39 [■■■■■■■■■■]   ║
+    ║  USB-C [═══]  LiPo [🔋]      ║
+    ║  BOOT [●]  RST [●]  LED [💡] ║
+    ╚═══════════════════════════════╝
 )");
     }
 };

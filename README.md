@@ -8,8 +8,8 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
-    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-42-green.svg" alt="Boards"></a>
-    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-317-orange.svg" alt="Examples"></a>
+    <a href="#-supported-boards"><img src="https://img.shields.io/badge/Boards-43-green.svg" alt="Boards"></a>
+    <a href="#-examples"><img src="https://img.shields.io/badge/Examples-322-orange.svg" alt="Examples"></a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 - 📡 **WiFi simulation** — STA/AP mode, connection lifecycle, scan results
 - 🖥️ **Rich Terminal UI** — Colored output, pin visualization, ASCII board diagrams
 - 🎛️ **Servo, LCD, NeoPixel** — Visual mock output in terminal
-- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, M5Atom Lite, DFRobot FireBeetle ESP32, LOLIN S3, M5StickC Plus, TTGO T-Display, XIAO ESP32-C6, QT Py ESP32-C3, TinyPICO, ESP32 DevKit V1, UM TinyS3, SparkFun Thing Plus C, ESP32-S3-DevKitC-1, UM FeatherS3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill, Heltec WiFi LoRa 32 V3, ESP32-S3-BOX-3
+- 🏗️ **Multi-board support** — ESP32, ESP32-S3, ESP32-C3, ESP32-S2, ESP32-C5, ESP32-C6, ESP32-C2, ESP32-H2, ESP32-P4, XIAO ESP32-S3, Feather ESP32-S3, M5Stack Core2, LilyGO T-Display S3, QT Py ESP32-S2, SparkFun Thing Plus ESP32-S3, Adafruit MatrixPortal S3, XIAO ESP32-C3, Feather ESP32-S2, Olimex ESP32-PoE, Waveshare ESP32-S3-Zero, Feather ESP32-C6, M5Atom Lite, DFRobot FireBeetle ESP32, LOLIN S3, M5StickC Plus, TTGO T-Display, XIAO ESP32-C6, QT Py ESP32-C3, TinyPICO, ESP32 DevKit V1, UM TinyS3, SparkFun Thing Plus C, ESP32-S3-DevKitC-1, UM FeatherS3, Arduino Uno, Mega, Nano, RP2040 Pico, Teensy 4.0, STM32 Blue Pill, Heltec WiFi LoRa 32 V3, ESP32-S3-BOX-3, ESP32-C3 SuperMini, LOLIN D32 Pro
 - ⚡ **FreeRTOS tasks** — xTaskCreate, mutexes, semaphores backed by std::thread
 - 💾 **SD card & filesystem** — SD, SPIFFS, LittleFS backed by host filesystem
 - 😴 **Deep sleep mock** — Test power management without exiting
@@ -326,6 +326,8 @@ make test
 | **UM FeatherS3** | ESP32-S3 | 21 | 6 | 512 KB | 8 MB | ✅ | ✅ |
 | **Heltec WiFi LoRa 32 V3** | ESP32-S3FN8 | 36 | 8 | 512 KB | 8 MB | ✅ | ✅ BLE 5 |
 | **ESP32-S3-BOX-3** | ESP32-S3 | 46 | 6 | 512 KB | 16 MB | ✅ | ✅ BLE 5 |
+| **ESP32-C3 SuperMini** | ESP32-C3 | 22 | 6 | 400 KB | 4 MB | ✅ | ❌ |
+| **LOLIN D32 Pro** | ESP32 | 40 | 18 | 520 KB | 16 MB | ✅ | ✅ |
 
 > ⚠️ **Arduino boards:** WiFi/Bluetooth calls print a warning and are ignored. Pin limits are enforced per board. `LED_BUILTIN = 13` (vs pin 2 on ESP32).
 
