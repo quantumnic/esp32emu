@@ -1,7 +1,7 @@
 // esp32emu example — Si7021 Temperature & Humidity Monitor
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_Si7021.h>
+#include <Adafruit_SI7021.h>
 
 Adafruit_Si7021 si7021;
 

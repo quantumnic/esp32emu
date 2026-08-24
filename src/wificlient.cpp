@@ -1,5 +1,6 @@
 #include "WiFiClient.h"
 #include "esp32emu_string.h"
+#include "esp32emu_socket.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -31,6 +32,7 @@ int WiFiClient::connect(const char* host, uint16_t port, int timeout_ms) {
 
     fd_ = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (fd_ < 0) { freeaddrinfo(res); return 0; }
+    esp32emu::net::harden_socket(fd_);
 
     // Non-blocking connect with timeout
     if (timeout_ms > 0) {
@@ -73,9 +75,15 @@ int WiFiClient::connect(const char* host, uint16_t port, int timeout_ms) {
 }
 
 size_t WiFiClient::write(const uint8_t* buf, size_t size) {
-    if (fd_ < 0) return 0;
-    ssize_t n = ::send(fd_, buf, size, 0);
-    return n > 0 ? (size_t)n : 0;
+    if (fd_ < 0 || !buf) return 0;
+    size_t off = 0;
+    while (off < size) {
+        ssize_t n = esp32emu::net::safe_send(fd_, buf + off, size - off);
+        if (n < 0 && errno == EINTR) continue;
+        if (n <= 0) break;
+        off += (size_t)n;
+    }
+    return off;
 }
 
 size_t WiFiClient::print(const char* s) {
@@ -110,6 +118,7 @@ int WiFiClient::read(uint8_t* buf, size_t size) {
 
 String WiFiClient::readString() {
     std::string result;
+    if (fd_ < 0) return String("");
     char buf[1024];
     while (true) {
         ssize_t n = recv(fd_, buf, sizeof(buf), 0);
@@ -121,6 +130,7 @@ String WiFiClient::readString() {
 
 String WiFiClient::readStringUntil(char terminator) {
     std::string result;
+    if (fd_ < 0) return String("");
     char c;
     while (true) {
         ssize_t n = recv(fd_, &c, 1, 0);

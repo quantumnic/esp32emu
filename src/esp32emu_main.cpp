@@ -22,6 +22,7 @@ static void sighandler(int sig) {
 int main(int argc, char** argv) {
     signal(SIGINT, sighandler);
     signal(SIGTERM, sighandler);
+    signal(SIGPIPE, SIG_IGN);
 
     // Parse CLI options
     esp32emu::BoardType board = esp32emu::BoardType::ESP32;

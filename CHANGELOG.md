@@ -2,6 +2,25 @@
 
 All notable changes to esp32emu are documented here.
 
+## [Unreleased]
+
+### Fixed
+- **SIGPIPE crash**: aborted client connections (e.g., `curl --max-time`, closed browser tabs) could kill the whole emulator with signal 13 while a large response was in flight. All TCP writes now suppress SIGPIPE (`MSG_NOSIGNAL` on Linux / `SO_NOSIGPIPE` on macOS), responses are written with partial-write/EINTR-safe loops, and the emulator main ignores SIGPIPE
+- **Split/truncated requests**: `WebServer` read each request with a single 8 KB `recv()`, so requests arriving across multiple TCP segments (large POST bodies, slow clients) were silently truncated. Requests are now read incrementally until the header block and `Content-Length` body are complete (64 KB header / 16 MB body caps)
+- **macOS portability**: accepted sockets inherit `O_NONBLOCK` from the listener on macOS (unlike Linux), causing dropped connections and partial reads; blocking mode is now restored explicitly so `SO_RCVTIMEO` governs timeouts consistently on both platforms
+- **URL decoding**: query parameters, form-encoded POST bodies, and request paths are now percent-decoded (`%20`, `%2B`, `+`) matching Arduino WebServer behavior
+- **HTTPClient robustness**: `setTimeout()` is now honored (previously ignored); malformed/garbage responses no longer risk `std::stoi` exceptions; chunked `Transfer-Encoding` responses are decoded; invalid ports in URLs are rejected instead of throwing
+
+### Added
+- **WiFi scan API** — `WiFi.scanNetworks()`, `WiFi.SSID(i)`, `WiFi.RSSI(i)` matching the Arduino ESP32 API, with `test_setScanResults()` injection helper
+- `WiFi.h` now provides `WiFiClient` directly (matches common sketch include patterns)
+- **Network robustness test suite** (`test_network_robust`): split 60 KB POST delivery, URL-decoded args/form bodies, client-abort survival under 6 MB responses, HTTPClient round-trip, chunked decoding, garbage-response safety, and timeout enforcement
+- WiFi scan regression tests in `test_wifi`
+
+### Fixed
+- **Broken example builds**: `si7021_temphumid` (class name `Adafruit_SI7021` vs `Adafruit_Si7021` — alias added), `thingspeak_weather` (`WiFiClient` not declared by `WiFi.h`), `xiao_c3_blink` (missing `scanNetworks` API); all 322 examples now compile
+- **Case-sensitive `#include` portability**: `test_si7021.cpp` and `examples/si7021_humidity.cpp` used wrong-case header filenames that only resolve on case-insensitive filesystems (macOS) and fail on Linux
+
 ## [v1.22.0] — 2026-02-25
 
 ### Added
