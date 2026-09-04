@@ -526,7 +526,7 @@ graph TB
 make test
 ```
 
-18 tests cover GPIO, WiFi, WebServer, Wire, SPI, EEPROM, Preferences, Servo, LEDC, String, Board, Time, ESP, SD, SPIFFS, NeoPixel, and tone/pulseIn modules.
+312 tests cover GPIO, WiFi, WebServer (real sockets), HTTPClient, Wire, SPI, EEPROM, Preferences, Servo, LEDC, String, Board, Time, ESP, SD, SPIFFS, NeoPixel, tone/pulseIn, and network robustness (split requests, large POST bodies, URL decoding, aborted clients, chunked responses, timeouts).
 
 ## 🤝 Contributing
 

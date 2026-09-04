@@ -2,8 +2,10 @@
 #include <cstdint>
 #include <cstring>
 #include <string>
+#include <vector>
 #include <functional>
 #include "esp32emu_string.h"
+#include "WiFiClient.h"
 
 #define WL_CONNECTED    3
 #define WL_DISCONNECTED 6
@@ -63,6 +65,38 @@ public:
     int32_t RSSI()  { return -42; }
     String macAddress() { return String("DE:AD:BE:EF:00:01"); }
 
+    struct ScanResult {
+        std::string ssid;
+        int32_t rssi;
+    };
+
+    int scanNetworks(bool async = false, bool show_hidden = false,
+                     bool passive = false, uint32_t max_ms_per_chan = 300) {
+        (void)async;
+        (void)show_hidden;
+        (void)passive;
+        (void)max_ms_per_chan;
+        if (!wifi_check_()) {
+            scan_results_.clear();
+            return 0;
+        }
+        return (int)scan_results_.size();
+    }
+
+    String SSID(uint8_t i) const {
+        if (i < scan_results_.size()) return String(scan_results_[i].ssid.c_str());
+        return String("");
+    }
+
+    int32_t RSSI(uint8_t i) const {
+        if (i < scan_results_.size()) return scan_results_[i].rssi;
+        return 0;
+    }
+
+    void test_setScanResults(const std::vector<ScanResult>& results) {
+        scan_results_ = results;
+    }
+
     void setHostname(const char* name) { hostname_ = name ? name : ""; }
     const char* getHostname() { return hostname_.c_str(); }
 
@@ -82,6 +116,7 @@ private:
     int mode_ = WIFI_STA;
     std::string ssid_;
     std::string hostname_ = "esp32emu";
+    std::vector<ScanResult> scan_results_;
 };
 
 extern WiFiClass WiFi;

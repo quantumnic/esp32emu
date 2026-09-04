@@ -2,6 +2,8 @@
 #include "WiFi.h"
 #include <cassert>
 #include <cstdio>
+#include <vector>
+#include <string>
 
 int main() {
     assert(WiFi.status() == WL_DISCONNECTED);
@@ -27,6 +29,33 @@ int main() {
     assert(WiFi.softAP("ESP32-AP"));
     IPAddress apIP = WiFi.softAPIP();
     assert(apIP[0] == 192);
+
+    // WiFi scan API
+    {
+        std::vector<WiFiClass::ScanResult> nets = {
+            {"HomeNet", -40},
+            {"CafeGuest", -67},
+            {"Neighbor", -80},
+        };
+        WiFi.test_setScanResults(nets);
+        int n = WiFi.scanNetworks();
+        assert(n == 3);
+        assert(std::string(WiFi.SSID(0).c_str()) == "HomeNet");
+        assert(WiFi.RSSI(1) == -67);
+        assert(WiFi.RSSI(9) == 0);
+        assert(std::string(WiFi.SSID(9).c_str()) == "");
+
+        WiFi.setWiFiCheck([]() { return false; });
+        assert(WiFi.scanNetworks() == 0);
+        WiFi.setWiFiCheck([]() { return true; });
+        WiFi.test_setScanResults({});
+    }
+
+    // WiFiClient usable via WiFi.h include
+    {
+        WiFiClient c;
+        assert(!c.connected());
+    }
 
     printf("test_wifi: all assertions passed\n");
     return 0;

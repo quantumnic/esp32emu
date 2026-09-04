@@ -4,7 +4,7 @@
 #include <cmath>
 #define ESP32EMU_MOCK
 #include "Arduino.h"
-#include "Adafruit_Si7021.h"
+#include "Adafruit_SI7021.h"
 
 int main() {
     // Test init

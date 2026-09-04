@@ -45,3 +45,5 @@ private:
     bool _heater = false;
     uint8_t _resolution = 0;
 };
+
+using Adafruit_SI7021 = Adafruit_Si7021;

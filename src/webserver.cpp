@@ -1,4 +1,5 @@
 #include "WebServer.h"
+#include "esp32emu_socket.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -6,6 +7,7 @@
 #include <fcntl.h>
 #include <cerrno>
 #include <cstdio>
+#include <cstdlib>
 #include <sstream>
 #include <algorithm>
 
@@ -74,10 +76,16 @@ void WebServer::handleClient() {
     int fd = accept(server_fd_, (struct sockaddr*)&client_addr, &len);
     if (fd < 0) return;
 
+    // Accepted sockets inherit O_NONBLOCK from the listener on some
+    // platforms (macOS); restore blocking mode so SO_RCVTIMEO applies.
+    int fd_flags = fcntl(fd, F_GETFL, 0);
+    if (fd_flags >= 0) fcntl(fd, F_SETFL, fd_flags & ~O_NONBLOCK);
+
     // Set a read timeout
     struct timeval tv{};
     tv.tv_sec = 1;
     setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+    esp32emu::net::harden_socket(fd);
 
     processClient(fd);
     ::close(fd);
@@ -99,11 +107,40 @@ void WebServer::parseQueryString(const std::string& qs) {
     while (std::getline(ss, pair, '&')) {
         auto eq = pair.find('=');
         if (eq != std::string::npos) {
-            current_params_.push_back({pair.substr(0, eq), pair.substr(eq + 1)});
+            current_params_.push_back({esp32emu::net::url_decode(pair.substr(0, eq)),
+                                       esp32emu::net::url_decode(pair.substr(eq + 1))});
         } else {
-            current_params_.push_back({pair, ""});
+            current_params_.push_back({esp32emu::net::url_decode(pair), ""});
         }
     }
+}
+
+static size_t parse_content_length(const std::string& headers) {
+    size_t pos = 0;
+    bool found = false;
+    size_t value = 0;
+    while (pos < headers.size()) {
+        size_t eol = headers.find('\n', pos);
+        if (eol == std::string::npos) eol = headers.size();
+        std::string line = headers.substr(pos, eol - pos);
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        auto colon = line.find(':');
+        if (colon != std::string::npos) {
+            std::string name = line.substr(0, colon);
+            std::transform(name.begin(), name.end(), name.begin(),
+                           [](unsigned char c) { return (char)tolower(c); });
+            if (name == "content-length") {
+                char* end = nullptr;
+                long v = strtol(line.c_str() + colon + 1, &end, 10);
+                if (end != line.c_str() + colon + 1 && v >= 0) {
+                    value = (size_t)v;
+                    found = true;
+                }
+            }
+        }
+        pos = eol + 1;
+    }
+    return found ? value : (size_t)-1;
 }
 
 void WebServer::parseHeaders(const std::string& raw) {
@@ -122,11 +159,33 @@ void WebServer::parseHeaders(const std::string& raw) {
     }
 }
 
+static const size_t kMaxHeaderBytes = 64 * 1024;
+static const size_t kMaxBodyBytes = 16 * 1024 * 1024;
+
 void WebServer::processClient(int fd) {
+    std::string req;
     char buf[8192];
-    int n = recv(fd, buf, sizeof(buf) - 1, 0);
-    if (n <= 0) return;
-    buf[n] = '\0';
+    size_t header_end = std::string::npos;
+    size_t content_length = (size_t)-1;
+
+    while (true) {
+        if (header_end != std::string::npos) {
+            size_t body_have = req.size() - (header_end + 4);
+            if (content_length != (size_t)-1 && body_have >= content_length) break;
+        } else if (req.size() > kMaxHeaderBytes) {
+            break;
+        }
+        ssize_t n = ::recv(fd, buf, sizeof(buf), 0);
+        if (n <= 0) break;
+        req.append(buf, (size_t)n);
+        if (header_end == std::string::npos) {
+            header_end = req.find("\r\n\r\n");
+            if (header_end != std::string::npos)
+                content_length = parse_content_length(req.substr(0, header_end));
+        }
+    }
+
+    if (req.empty()) return;
 
     client_fd_ = fd;
     current_params_.clear();
@@ -135,8 +194,15 @@ void WebServer::processClient(int fd) {
     current_body_.clear();
 
     // Parse request line
+    size_t line_end = req.find("\r\n");
+    std::string request_line =
+        req.substr(0, line_end == std::string::npos ? req.size() : line_end);
+    if (request_line.size() >= 2048) {
+        client_fd_ = -1;
+        return;
+    }
     char method_str[16], path_buf[1024], proto[16];
-    if (sscanf(buf, "%15s %1023s %15s", method_str, path_buf, proto) != 3) {
+    if (sscanf(request_line.c_str(), "%15s %1023s %15s", method_str, path_buf, proto) < 2) {
         client_fd_ = -1;
         return;
     }
@@ -147,24 +213,27 @@ void WebServer::processClient(int fd) {
     std::string full_path(path_buf);
     auto qmark = full_path.find('?');
     if (qmark != std::string::npos) {
-        current_uri_ = full_path.substr(0, qmark);
+        current_uri_ = esp32emu::net::url_decode(full_path.substr(0, qmark));
         parseQueryString(full_path.substr(qmark + 1));
     } else {
-        current_uri_ = full_path;
+        current_uri_ = esp32emu::net::url_decode(full_path);
     }
 
     // Parse headers
-    const char* header_start = strstr(buf, "\r\n");
-    if (header_start) {
-        header_start += 2;
-        const char* body_start = strstr(header_start, "\r\n\r\n");
-        if (body_start) {
-            std::string hdr_block(header_start, body_start - header_start);
-            parseHeaders(hdr_block);
-            current_body_ = std::string(body_start + 4);
-        } else {
-            parseHeaders(std::string(header_start));
-        }
+    if (line_end != std::string::npos && header_end != std::string::npos &&
+        header_end > line_end + 2) {
+        parseHeaders(req.substr(line_end + 2, header_end - (line_end + 2)));
+    } else if (line_end != std::string::npos) {
+        parseHeaders(req.substr(line_end + 2));
+    }
+
+    // Extract body up to Content-Length (or all buffered data if absent)
+    if (header_end != std::string::npos && req.size() > header_end + 4) {
+        size_t remaining = req.size() - (header_end + 4);
+        size_t avail = (content_length != (size_t)-1) ? std::min(content_length, remaining)
+                                                      : remaining;
+        avail = std::min(avail, kMaxBodyBytes);
+        current_body_ = req.substr(header_end + 4, avail);
     }
 
     // If POST body and content-type is form, parse params
@@ -265,7 +334,13 @@ void WebServer::send(int code, const char* content_type, const char* content) {
     resp += "\r\n";
     if (content && clen > 0) resp += content;
 
-    ::send(client_fd_, resp.c_str(), resp.size(), 0);
+    size_t off = 0;
+    while (off < resp.size()) {
+        ssize_t n = esp32emu::net::safe_send(client_fd_, resp.data() + off, resp.size() - off);
+        if (n < 0 && errno == EINTR) continue;
+        if (n <= 0) break;
+        off += (size_t)n;
+    }
     response_headers_.clear();
 }
 
