@@ -4,7 +4,7 @@
     <strong>Lightweight ESP32/Arduino emulator for host-side testing — real network sockets, no hardware needed.</strong>
   </p>
   <p align="center">
-    <a href="https://github.com/redbasecap-buiss/esp32emu/actions/workflows/ci.yml"><img src="https://github.com/redbasecap-buiss/esp32emu/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <a href="https://github.com/quantumnic/esp32emu/actions/workflows/ci.yml"><img src="https://github.com/quantumnic/esp32emu/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
     <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg?logo=cplusplus" alt="C++17"></a>
     <a href="#"><img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="Platform"></a>
@@ -261,7 +261,7 @@ Run your ESP32 and Arduino sketches on macOS or Linux. The HTTP server listens o
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/redbasecap-buiss/esp32emu.git
+git clone https://github.com/quantumnic/esp32emu.git
 cd esp32emu
 
 # Run all tests

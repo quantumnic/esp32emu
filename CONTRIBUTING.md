@@ -5,7 +5,7 @@ Thanks for your interest in contributing! 🎉
 ## Quick Start
 
 ```bash
-git clone https://github.com/redbasecap-buiss/esp32emu.git
+git clone https://github.com/quantumnic/esp32emu.git
 cd esp32emu
 make test     # Run all tests
 make examples # Build all examples

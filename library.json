@@ -5,12 +5,12 @@
   "keywords": ["esp32", "arduino", "emulator", "testing", "embedded", "simulator", "platformio"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/redbasecap-buiss/esp32emu.git"
+    "url": "https://github.com/quantumnic/esp32emu.git"
   },
   "authors": [
     {
       "name": "Nicola Spieser",
-      "url": "https://github.com/redbasecap-buiss"
+      "url": "https://github.com/quantumnic"
     }
   ],
   "license": "MIT",
